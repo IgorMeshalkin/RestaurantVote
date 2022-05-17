@@ -1,21 +1,20 @@
 package com.igormeshalkin.restaurant_vote.service;
 
 import com.igormeshalkin.restaurant_vote.model.User;
-import com.igormeshalkin.restaurant_vote.repository.UserRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    public List<User> findAll();
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    public User findById(Long id);
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    public User findByUsername(String username);
+
+    public User create(User user);
+
+    User update(User updatedUser, User currentUser);
+
+    public void delete(Long id);
 }

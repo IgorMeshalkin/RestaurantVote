@@ -1,7 +1,6 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 

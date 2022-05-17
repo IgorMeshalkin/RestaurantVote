@@ -1,25 +1,53 @@
 package com.igormeshalkin.restaurant_vote.rest;
 
 import com.igormeshalkin.restaurant_vote.model.User;
-import com.igormeshalkin.restaurant_vote.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import com.igormeshalkin.restaurant_vote.service.UserServiceImpl;
+import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UserRestController(UserService userService) {
+    public UserRestController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @PostMapping
+    public ResponseEntity<User> create(@RequestBody User user) {
+        User result = userService.create(user);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('users:read your entries')")
+    public ResponseEntity<User> get() {
+        User user = SecurityUtil.getCurrentUser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('users:change your entries')")
+    public ResponseEntity<User> update(@RequestBody User user) {
+        User currentUser = SecurityUtil.getCurrentUser();
+        if (currentUser.getUsername().equals(user.getUsername())) {
+            User result = userService.update(user, currentUser);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @DeleteMapping
+    @PreAuthorize("hasAuthority('users:change your entries')")
+    public void delete() {
+        User user = SecurityUtil.getCurrentUser();
+        userService.delete(user.getId());
+    }
+
 }

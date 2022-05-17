@@ -2,13 +2,12 @@ package com.igormeshalkin.restaurant_vote.model;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum Role {
-    ADMIN(Set.of(Permission.USERS_WRITE, Permission.USERS_READ)),
-    USER(Set.of(Permission.USERS_WRITE));
+    ADMIN(Set.of(Permission.READ_YOUR_ENTRIES, Permission.READ_ANY_ENTRIES, Permission.CHANGE_ANY_ENTRIES, Permission.CHANGE_YOUR_ENTRIES)),
+    USER(Set.of(Permission.READ_YOUR_ENTRIES, Permission.CHANGE_YOUR_ENTRIES));
 
     private final Set<Permission> permissions;
 
