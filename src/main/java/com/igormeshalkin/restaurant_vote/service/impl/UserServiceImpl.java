@@ -1,14 +1,14 @@
-package com.igormeshalkin.restaurant_vote.service;
+package com.igormeshalkin.restaurant_vote.service.impl;
 
 import com.igormeshalkin.restaurant_vote.model.Role;
 import com.igormeshalkin.restaurant_vote.model.User;
 import com.igormeshalkin.restaurant_vote.repository.UserRepository;
+import com.igormeshalkin.restaurant_vote.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -78,6 +78,7 @@ public class UserServiceImpl implements UserService {
     public User update(User updatedUser, User currentUser) {
         User userFromDb = userRepository.findById(updatedUser.getId()).orElse(null);
         if (userFromDb == null) {
+            log.info("IN update - user with id \"{}\" not found for update)", updatedUser.getId());
             return updatedUser;
         }
 
@@ -89,12 +90,15 @@ public class UserServiceImpl implements UserService {
                 }
         }
 
-        if (!userFromDb.getPassword().equals(updatedUser.getPassword())) {
+        if (updatedUser.getPassword() == null) {
+            updatedUser.setPassword(userFromDb.getPassword());
+        } else if (!userFromDb.getPassword().equals(updatedUser.getPassword())) {
             updatedUser.setPassword(passwordEncoderFromUserService().encode(updatedUser.getPassword()));
         }
 
         LocalDateTime dateTime = LocalDateTime.now(ZONE_ID);
         updatedUser.setUpdated(dateTime);
+        updatedUser.setCreated(userFromDb.getCreated());
 
         User result = userRepository.save(updatedUser);
         log.info("IN update - user: {} successfully updated", result);
