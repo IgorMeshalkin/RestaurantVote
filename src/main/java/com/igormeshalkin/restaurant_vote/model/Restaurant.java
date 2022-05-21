@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "restaurants")
 @Data
 public class Restaurant extends BaseEntity{
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

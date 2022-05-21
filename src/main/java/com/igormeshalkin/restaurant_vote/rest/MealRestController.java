@@ -1,5 +1,6 @@
 package com.igormeshalkin.restaurant_vote.rest;
 
+import com.igormeshalkin.restaurant_vote.dto.MealDto;
 import com.igormeshalkin.restaurant_vote.model.Meal;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.service.MealService;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/meals")
@@ -24,12 +26,14 @@ public class MealRestController {
 
     @GetMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('everything:read entries')")
-    public ResponseEntity<List<Meal>> getMenu(@PathVariable Long restaurant_id) {
+    public ResponseEntity<List<MealDto>> getMenu(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
         if(restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            List<Meal> result = restaurant.getMenu();
+            List<MealDto> result = restaurant.getMenu().stream()
+                    .map(MealDto::fromMeal)
+                    .collect(Collectors.toList());
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }

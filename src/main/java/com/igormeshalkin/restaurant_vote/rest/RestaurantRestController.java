@@ -1,5 +1,6 @@
 package com.igormeshalkin.restaurant_vote.rest;
 
+import com.igormeshalkin.restaurant_vote.dto.RestaurantDto;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/restaurants")
@@ -20,30 +22,35 @@ public class RestaurantRestController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('everything:read entries')")
-    public ResponseEntity<List<Restaurant>> getAll() {
-        List<Restaurant> result = restaurantService.findAll();
+    public ResponseEntity<List<RestaurantDto>> getAll() {
+        List<RestaurantDto> result = restaurantService.findAll().stream()
+                .map(RestaurantDto::fromRestaurant)
+                .sorted((rest1, rest2) -> Long.compare(rest2.getRating(), rest1.getRating()))
+                .collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('everything:read entries')")
-    public ResponseEntity<Restaurant> getById(@PathVariable Long id) {
+    public ResponseEntity<RestaurantDto> getById(@PathVariable Long id) {
         Restaurant restaurant = restaurantService.findById(id);
         if(restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('everything:read entries')")
-    public ResponseEntity<Restaurant> getById(@PathVariable String name) {
+    public ResponseEntity<RestaurantDto> getById(@PathVariable String name) {
         Restaurant restaurant = restaurantService.findByName(name);
         if(restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(restaurant, HttpStatus.OK);
+            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 

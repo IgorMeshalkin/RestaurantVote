@@ -11,7 +11,7 @@ public class SecurityUtil {
     private static UserService userService;
 
     public SecurityUtil(UserService userService) {
-        this.userService = userService;
+        SecurityUtil.userService = userService;
     }
 
     public static User getCurrentUser() {
