@@ -2,8 +2,7 @@ package com.igormeshalkin.restaurant_vote.rest;
 
 import com.igormeshalkin.restaurant_vote.dto.UserDto;
 import com.igormeshalkin.restaurant_vote.model.User;
-import com.igormeshalkin.restaurant_vote.service.impl.UserServiceImpl;
-import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
+import com.igormeshalkin.restaurant_vote.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +14,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminRestController {
+    private final UserService userService;
 
-    private final UserServiceImpl userService;
-
-    public AdminRestController(UserServiceImpl userService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -56,7 +54,7 @@ public class AdminRestController {
     @PutMapping
     @PreAuthorize("hasAuthority('users:change any entries')")
     public ResponseEntity<UserDto> update(@RequestBody User user) {
-        User result = userService.update(user, SecurityUtil.getCurrentUser());
+        User result = userService.update(user);
         return new ResponseEntity<>(UserDto.fromUser(result), HttpStatus.OK);
     }
 

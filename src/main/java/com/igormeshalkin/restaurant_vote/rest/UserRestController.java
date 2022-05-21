@@ -2,7 +2,7 @@ package com.igormeshalkin.restaurant_vote.rest;
 
 import com.igormeshalkin.restaurant_vote.dto.UserDto;
 import com.igormeshalkin.restaurant_vote.model.User;
-import com.igormeshalkin.restaurant_vote.service.impl.UserServiceImpl;
+import com.igormeshalkin.restaurant_vote.service.UserService;
 import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
+    private final UserService userService;
 
-    private final UserServiceImpl userService;
-
-    public UserRestController(UserServiceImpl userService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -37,7 +36,7 @@ public class UserRestController {
     public ResponseEntity<UserDto> update(@RequestBody User user) {
         User currentUser = SecurityUtil.getCurrentUser();
         if (currentUser.getUsername().equals(user.getUsername())) {
-            User result = userService.update(user, currentUser);
+            User result = userService.update(user);
             return new ResponseEntity<>(UserDto.fromUser(result), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

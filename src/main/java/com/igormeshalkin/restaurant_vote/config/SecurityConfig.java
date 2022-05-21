@@ -1,6 +1,5 @@
 package com.igormeshalkin.restaurant_vote.config;
 
-import com.igormeshalkin.restaurant_vote.model.Permission;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

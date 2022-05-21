@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -27,4 +28,22 @@ public class User extends BaseEntity{
 
     @Column(name = "active")
     private boolean active;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vote_id")
+    @JsonBackReference
+    private Vote vote;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + getId() + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role=" + role +
+                ", active=" + active +
+                '}';
+    }
 }
