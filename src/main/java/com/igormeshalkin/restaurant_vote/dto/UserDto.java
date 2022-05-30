@@ -3,10 +3,14 @@ package com.igormeshalkin.restaurant_vote.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.igormeshalkin.restaurant_vote.model.Role;
 import com.igormeshalkin.restaurant_vote.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     private Long id;
     private String username;

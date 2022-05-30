@@ -1,14 +1,18 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 @Data
-public class User extends BaseEntity{
+@NoArgsConstructor
+@AllArgsConstructor
+public class User extends BaseEntity {
 
     @Column(name = "username")
     private String username;
@@ -33,6 +37,18 @@ public class User extends BaseEntity{
     @JoinColumn(name = "vote_id")
     @JsonBackReference
     private Vote vote;
+
+
+    //constructor for the tests
+    public User(Long id, String username, String password, String firstName, String lastName, Role role, boolean active) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.active = active;
+    }
 
     @Override
     public String toString() {

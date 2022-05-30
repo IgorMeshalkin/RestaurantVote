@@ -24,7 +24,7 @@ public class VoteRestController {
     @PreAuthorize("hasAuthority('users:vote')")
     public ResponseEntity<Vote> voteForTheRestaurant(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             Vote result = voteService.create(restaurant);
@@ -36,7 +36,7 @@ public class VoteRestController {
     @PreAuthorize("hasAuthority('users:vote')")
     public ResponseEntity<Vote> update(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             Vote result = voteService.update(restaurant);

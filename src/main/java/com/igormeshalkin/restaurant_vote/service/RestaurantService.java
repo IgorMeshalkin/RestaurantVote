@@ -2,7 +2,7 @@ package com.igormeshalkin.restaurant_vote.service;
 
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.repository.RestaurantRepository;
-import com.igormeshalkin.restaurant_vote.util.TimeZoneUtil;
+import com.igormeshalkin.restaurant_vote.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +50,7 @@ public class RestaurantService {
     }
 
     public Restaurant create(Restaurant restaurant) {
-        LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+        LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         restaurant.setCreated(dateTime);
         restaurant.setUpdated(dateTime);
 
@@ -66,7 +66,7 @@ public class RestaurantService {
             return restaurant;
         }
 
-        LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+        LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         restaurant.setCreated(restaurantFromDb.getCreated());
         restaurant.setUpdated(dateTime);
 

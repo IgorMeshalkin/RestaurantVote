@@ -4,7 +4,7 @@ import com.igormeshalkin.restaurant_vote.model.Role;
 import com.igormeshalkin.restaurant_vote.model.User;
 import com.igormeshalkin.restaurant_vote.repository.UserRepository;
 import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
-import com.igormeshalkin.restaurant_vote.util.TimeZoneUtil;
+import com.igormeshalkin.restaurant_vote.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,7 +59,7 @@ public class UserService {
         user.setRole(Role.USER);
         user.setActive(true);
 
-        LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+        LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         user.setCreated(dateTime);
         user.setUpdated(dateTime);
 
@@ -90,7 +90,7 @@ public class UserService {
             updatedUser.setPassword(passwordEncoderFromUserService().encode(updatedUser.getPassword()));
         }
 
-        LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+        LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         updatedUser.setUpdated(dateTime);
         updatedUser.setCreated(userFromDb.getCreated());
 

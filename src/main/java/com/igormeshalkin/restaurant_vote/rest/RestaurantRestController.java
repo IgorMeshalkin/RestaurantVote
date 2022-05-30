@@ -25,7 +25,6 @@ public class RestaurantRestController {
     public ResponseEntity<List<RestaurantDto>> getAll() {
         List<RestaurantDto> result = restaurantService.findAll().stream()
                 .map(RestaurantDto::fromRestaurant)
-                .sorted((rest1, rest2) -> Long.compare(rest2.getRating(), rest1.getRating()))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -34,7 +33,7 @@ public class RestaurantRestController {
     @PreAuthorize("hasAuthority('everything:read entries')")
     public ResponseEntity<RestaurantDto> getById(@PathVariable Long id) {
         Restaurant restaurant = restaurantService.findById(id);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
@@ -44,9 +43,9 @@ public class RestaurantRestController {
 
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('everything:read entries')")
-    public ResponseEntity<RestaurantDto> getById(@PathVariable String name) {
+    public ResponseEntity<RestaurantDto> getByName(@PathVariable String name) {
         Restaurant restaurant = restaurantService.findByName(name);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);

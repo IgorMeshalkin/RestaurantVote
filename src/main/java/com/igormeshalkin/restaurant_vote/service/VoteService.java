@@ -7,7 +7,7 @@ import com.igormeshalkin.restaurant_vote.model.Vote;
 import com.igormeshalkin.restaurant_vote.repository.UserRepository;
 import com.igormeshalkin.restaurant_vote.repository.VoteRepository;
 import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
-import com.igormeshalkin.restaurant_vote.util.TimeZoneUtil;
+import com.igormeshalkin.restaurant_vote.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class VoteService {
         vote.setUser(currentUser);
         vote.setRestaurant(restaurant);
 
-        LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+        LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         vote.setCreated(dateTime);
         vote.setUpdated(dateTime);
 
@@ -47,12 +47,12 @@ public class VoteService {
         User currentUser = SecurityUtil.getCurrentUser();
         Vote vote = currentUser.getVote();
 
-        LocalTime controlTime = LocalTime.parse("11:00:00");
+        LocalTime controlTime = LocalTime.parse(TimeUtil.TIME_LIMIT_FOR_UPDATE_VOTE);
         LocalTime currentTime = LocalTime.now();
 
         if (controlTime.compareTo(currentTime) >= 0) {
             vote.setRestaurant(restaurant);
-            LocalDateTime dateTime = LocalDateTime.now(TimeZoneUtil.SERVER_ZONE_ID);
+            LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
             vote.setUpdated(dateTime);
             Vote result = voteRepository.save(vote);
             currentUser.setVote(result);
@@ -60,7 +60,7 @@ public class VoteService {
             log.info("IN create - User {} successfully voted for the restaurant: \"{}\". Vote id: \"{}\".", currentUser, restaurant.getName(), result.getId());
             return result;
         } else {
-            log.warn("IN update - prevented an attempt to change the vote after the time limit of 11:00:00");
+            log.warn("IN update - prevented an attempt to change the vote after the time limit of \"" + TimeUtil.TIME_LIMIT_FOR_UPDATE_VOTE + "\"");
             return vote;
         }
     }

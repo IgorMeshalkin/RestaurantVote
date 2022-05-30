@@ -3,14 +3,12 @@ package com.igormeshalkin.restaurant_vote.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Component
 public class RestaurantDto {
     private String name;
     private Long rating;
