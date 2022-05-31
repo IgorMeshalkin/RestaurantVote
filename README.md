@@ -16,7 +16,7 @@ If the user decides to change his voting decision, he can do it no later than th
 A stack of used technologies
 ----------------------------
 
-JDK 11, Spring Boot 2.6.7, Spring Data JPA, Lombok, Junit5, Mockito, Swagger/OpenAPI
+JDK 11, Spring Boot 2.6.7, Spring Security, Spring Data JPA, Lombok, Junit5, Mockito, Swagger/OpenAPI
 
 Application launch
 ------------------
