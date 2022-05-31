@@ -13,7 +13,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -80,8 +79,8 @@ class AdminRestControllerTest {
     @WithUserDetails("admin")
     void updateUser() throws Exception {
         mockMvc.perform(put("/api/admin/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2))
                 .andExpect(jsonPath("$.lastName").value("Сергеев"));
@@ -91,8 +90,8 @@ class AdminRestControllerTest {
     @WithUserDetails("admin")
     void updateUserWithRole() throws Exception {
         mockMvc.perform(put("/api/admin/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdateWithRole()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdateWithRole()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(3))
                 .andExpect(jsonPath("$.lastName").value("Петров"))

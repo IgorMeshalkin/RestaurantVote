@@ -3,6 +3,7 @@ package com.igormeshalkin.restaurant_vote.rest;
 import com.igormeshalkin.restaurant_vote.dto.RestaurantDto;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,7 @@ public class RestaurantRestController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('everything:read entries')")
+    @ApiOperation("Get all restaurants")
     public ResponseEntity<List<RestaurantDto>> getAll() {
         List<RestaurantDto> result = restaurantService.findAll().stream()
                 .map(RestaurantDto::fromRestaurant)
@@ -31,6 +33,7 @@ public class RestaurantRestController {
 
     @GetMapping("/by-id/{id}")
     @PreAuthorize("hasAuthority('everything:read entries')")
+    @ApiOperation("Get restaurant by id")
     public ResponseEntity<RestaurantDto> getById(@PathVariable Long id) {
         Restaurant restaurant = restaurantService.findById(id);
         if (restaurant == null) {
@@ -43,6 +46,7 @@ public class RestaurantRestController {
 
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('everything:read entries')")
+    @ApiOperation("Get restaurant by name")
     public ResponseEntity<RestaurantDto> getByName(@PathVariable String name) {
         Restaurant restaurant = restaurantService.findByName(name);
         if (restaurant == null) {
@@ -55,6 +59,7 @@ public class RestaurantRestController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Create new restaurant")
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
         Restaurant result = restaurantService.create(restaurant);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -62,6 +67,7 @@ public class RestaurantRestController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Update restaurant")
     public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant) {
         Restaurant result = restaurantService.update(restaurant);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -69,6 +75,7 @@ public class RestaurantRestController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Delete restaurant")
     public void delete(@PathVariable Long id) {
         restaurantService.delete(id);
     }

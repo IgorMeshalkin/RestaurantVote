@@ -5,6 +5,7 @@ import com.igormeshalkin.restaurant_vote.model.Meal;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.service.MealService;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,9 +27,10 @@ public class MealRestController {
 
     @GetMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('everything:read entries')")
+    @ApiOperation("Get restaurant menu by its id")
     public ResponseEntity<List<MealDto>> getMenu(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             List<MealDto> result = restaurant.getMenu().stream()
@@ -40,10 +42,11 @@ public class MealRestController {
 
     @PostMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Create new meal and add it to the restaurant menu by its id")
     public ResponseEntity<Meal> createAndAddToRestaurantMenu(@RequestBody Meal meal,
-                                                             @PathVariable Long restaurant_id){
+                                                             @PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
-        if(restaurant == null) {
+        if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             Meal result = mealService.create(meal, restaurant);
@@ -53,6 +56,7 @@ public class MealRestController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Update meal")
     public ResponseEntity<Meal> update(@RequestBody Meal meal) {
         Meal result = mealService.update(meal);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -60,6 +64,7 @@ public class MealRestController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('everything:change entries')")
+    @ApiOperation("Delete meal")
     public void delete(@PathVariable Long id) {
         mealService.delete(id);
     }

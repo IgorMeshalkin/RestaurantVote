@@ -31,8 +31,8 @@ class UserRestControllerTest {
     @Test
     void create() throws Exception {
         mockMvc.perform(post("/api/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForCreate()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForCreate()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(4))
                 .andExpect(jsonPath("$.lastName").value("Сергеев"));
@@ -51,8 +51,8 @@ class UserRestControllerTest {
     @WithUserDetails("ivan")
     void updateUser() throws Exception {
         mockMvc.perform(put("/api/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2))
                 .andExpect(jsonPath("$.lastName").value("Сергеев"));
@@ -62,8 +62,8 @@ class UserRestControllerTest {
     @WithUserDetails("petr")
     void updateUserWithRole() throws Exception {
         mockMvc.perform(put("/api/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdateWithRole()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdateWithRole()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(3))
                 .andExpect(jsonPath("$.lastName").value("Петров"))
@@ -74,8 +74,8 @@ class UserRestControllerTest {
     @WithUserDetails("petr")
     void updateAnotherUser() throws Exception {
         mockMvc.perform(put("/api/users")
-                                .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
-                                .contentType(MediaType.APPLICATION_JSON))
+                        .content(objectMapper.writeValueAsString(UserTestUtil.getUserForUpdate()))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
 

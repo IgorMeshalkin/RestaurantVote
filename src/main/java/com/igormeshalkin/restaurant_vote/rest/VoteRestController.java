@@ -4,6 +4,8 @@ import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.model.Vote;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
 import com.igormeshalkin.restaurant_vote.service.VoteService;
+import com.igormeshalkin.restaurant_vote.util.TimeUtil;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +24,7 @@ public class VoteRestController {
 
     @PostMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('users:vote')")
+    @ApiOperation("Vote for the restaurant")
     public ResponseEntity<Vote> voteForTheRestaurant(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
         if (restaurant == null) {
@@ -34,6 +37,7 @@ public class VoteRestController {
 
     @PutMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('users:vote')")
+    @ApiOperation("Change your vote (Possibly not later " + TimeUtil.TIME_LIMIT_FOR_UPDATE_VOTE + ")")
     public ResponseEntity<Vote> update(@PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
         if (restaurant == null) {
@@ -46,6 +50,7 @@ public class VoteRestController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('users:vote')")
+    @ApiOperation("Delete your vote")
     public void delete(@PathVariable Long id) {
         voteService.delete(id);
     }
