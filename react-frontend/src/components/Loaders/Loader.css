@@ -1,0 +1,30 @@
+.pizza {
+    height: 100px;
+    display: none;
+}
+
+.pizza.active {
+    display: flex;
+}
+
+.lineLoaderMain {
+    height: 20px;
+    width: 100%;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.lineLoaderRunner {
+    width: 30px;
+    height: 100%;
+    background-color: #00BB22;
+    filter: blur(8px);
+    animation: runner 1s ease-in-out infinite;
+}
+
+@keyframes runner {
+    from {margin-left: -40px;}
+    to {margin-left: 105%;}
+}
+
+

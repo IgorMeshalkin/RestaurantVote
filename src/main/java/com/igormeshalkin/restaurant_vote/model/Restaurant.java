@@ -15,6 +15,19 @@ public class Restaurant extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name="address")
+    private String address;
+
+    @Column(name="lunch_time")
+    private String lunchTime;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cuisine")
+    private СuisineType cuisine;
+
+    @Column(name = "price")
+    private Double price;
+
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Meal> menu;
@@ -35,6 +48,8 @@ public class Restaurant extends BaseEntity {
         return "Restaurant{" +
                 "id='" + getId() + '\'' +
                 ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", price='" + price + '\'' +
                 '}';
     }
 }

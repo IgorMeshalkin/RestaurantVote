@@ -1,0 +1,53 @@
+.arrowContainer {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.arrowContainer:hover {
+    background-color: #d9d9d9;
+}
+
+.arrowContainer:active .left1 {
+    border: black 2px none;
+    border-left-style: solid;
+}
+
+.arrowContainer:active .left2 {
+    border: black 2px none;
+    border-left-style: solid;
+}
+
+.left1 {
+    width: 15px;
+    height: 15px;
+    border: black 1px none;
+    border-left-style: solid;
+    transform: rotate(55deg);
+    position: absolute;
+    left: 11px;
+    top: 12px;
+}
+
+.left2 {
+    width: 15px;
+    height: 15px;
+    border: black 1px none;
+    border-left-style: solid;
+    transform: rotate(-55deg);
+    position: absolute;
+    left: 11px;
+    top: 8px;
+}
+
+.left1.right1 {
+    left: 15px;
+    top: 20px;
+}
+
+.left2.right2 {
+    left: 15px;
+    top: -1px;
+}

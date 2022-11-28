@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class Meal extends BaseEntity {
     @Column(name = "name")
     private String name;
-    @Column(name = "price")
-    private double price;
+    @Column(name = "weight")
+    private int weight;
 
     @ManyToOne()
     @JoinColumn(name = "restaurant_id")
@@ -22,9 +22,9 @@ public class Meal extends BaseEntity {
     private Restaurant restaurant;
 
     //constructor for the tests
-    public Meal(Long id, String name, double price) {
+    public Meal(Long id, String name, int weight) {
         this.id = id;
         this.name = name;
-        this.price = price;
+        this.weight = weight;
     }
 }

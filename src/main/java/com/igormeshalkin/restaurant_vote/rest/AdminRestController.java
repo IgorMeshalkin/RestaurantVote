@@ -17,9 +17,7 @@ import java.util.stream.Collectors;
 public class AdminRestController {
     private final UserService userService;
 
-    public AdminRestController(UserService userService) {
-        this.userService = userService;
-    }
+    public AdminRestController(UserService userService) {this.userService = userService;}
 
     @GetMapping
     @PreAuthorize("hasAuthority('users:read any entries')")

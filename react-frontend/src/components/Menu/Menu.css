@@ -1,0 +1,106 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.background.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.window {
+    padding: 10px 20px 20px 20px;
+    border-radius: 12px;
+    background-color: white;
+    margin: 5px;
+    overflow: hidden;
+    transform: scale(0.5);
+    transition: 0.3s;
+}
+
+.window.active {
+    transform: scale(1);
+}
+
+.closeButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.title {
+    font-size: 22px;
+    font-weight: bold;
+    width: 200px;
+    height: 50px;
+    margin-right: 50px;
+}
+
+.number {
+    text-align: left;
+    white-space: nowrap;
+    width: 30px;
+    font-size: 18px;
+    padding: 0;
+}
+
+.name {
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+.weight {
+    float: right;
+    font-size: 18px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tableBody {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.tableBody tr:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+
+.image {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    height: 50px;
+}
+
+.price {
+    font-size: 26px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    text-shadow: 3px 0 3px white,
+    0 3px 3px white,
+    -3px 0 3px white,
+    0 -3px 3px white;
+}

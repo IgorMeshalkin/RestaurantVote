@@ -1,0 +1,41 @@
+.selectCuisineButton {
+    width: 120px;
+    height: 30px;
+    padding: 5px 10px;
+    border: darkgray 1px solid;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.selectCuisineButton:hover {
+    background-color: #d9d9d9;
+}
+
+.selectCuisineButton:active {
+    border: dimgrey 1px solid;
+}
+
+.selectedCuisineButton {
+    width: 120px;
+    height: 30px;
+    padding: 5px 10px;
+    border: darkgray 1px solid;
+    border-radius: 10px;
+    background-color: #b5ffc3;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}

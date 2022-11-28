@@ -1,0 +1,47 @@
+.externalDropDownList {
+    height: 40px;
+    width: 100%;
+}
+
+.dropDownList {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    background-color: white;
+    border: darkgray 1px solid;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.dropDownList.close {
+    height: 40px;
+}
+
+.rightSide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 40px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #f0f0f0;
+    border: darkgray 1px solid;
+    border-left-style: none;
+    box-sizing: border-box;
+}
+
+.arrowHandle {
+    margin: 2px;
+    float: right;
+    transform: rotate(-270deg);
+    transition: 0.3s;
+}
+
+.arrowHandle.close {
+    transform: rotate(-90deg);
+}

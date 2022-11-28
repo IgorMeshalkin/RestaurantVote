@@ -1,13 +1,15 @@
 package com.igormeshalkin.restaurant_vote.service;
 
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
+import com.igormeshalkin.restaurant_vote.model.СuisineType;
 import com.igormeshalkin.restaurant_vote.repository.RestaurantRepository;
 import com.igormeshalkin.restaurant_vote.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,9 +21,17 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public List<Restaurant> findAll() {
-        List<Restaurant> result = restaurantRepository.findAll();
-        log.info("IN findAll - {} restaurants found", result.size());
+
+    public Page<Restaurant> findAll(String searchQuery, СuisineType cuisine, Pageable pageable) {
+        Page<Restaurant> result = null;
+        if (pageable.getSort().isUnsorted()) {
+                result = restaurantRepository.findAllPagingAndSortingByRating(searchQuery, cuisine, pageable);
+        } else {
+                result = restaurantRepository.findAllPagingAndSorting(searchQuery, cuisine, pageable);
+        }
+
+        log.info("IN findAll - {} restaurants found", result.getContent().size());
+
         return result;
     }
 

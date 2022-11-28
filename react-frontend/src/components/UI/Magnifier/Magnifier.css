@@ -1,0 +1,42 @@
+.magnifierMain {
+    width: 44px;
+    height: 34px;
+    border-radius: 17px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.magnifierMain:hover {
+    background-color: #d9d9d9;
+}
+
+.magnifierMain:active .magnifier {
+    border: black 2px solid;
+}
+
+.magnifierMain:active .handle {
+    border: black 2px none;
+    border-top-style: solid;
+}
+
+.magnifier {
+    width: 14px;
+    height: 14px;
+    border: black 1px solid;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    box-sizing: border-box;
+}
+
+.handle {
+    width: 10px;
+    height: 10px;
+    border: black 1px none;
+    border-top-style: solid;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 21px;
+    left: 20px;
+}

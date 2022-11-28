@@ -1,0 +1,79 @@
+.sortAndSearchPanel {
+    width: 50%;
+    height: 95px;
+    position: fixed;
+    background-color: white;
+    top: 45px;
+    left: 5%;
+    transform: translateY(0);
+    transition: 0.7s;
+    border: white 10px solid;
+    min-width: 566px;
+}
+
+.sortAndSearchPanel.active {
+    transform: translateY(-120px);
+}
+
+.searchBlock {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 60%;
+}
+
+.sortBlock {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    width: 35%;
+    height: 42px;
+}
+
+.selectCuisineBlock {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 1100px) {
+    .sortAndSearchPanel {
+        left: -3px;
+    }
+}
+
+@media (max-width: 930px) {
+    .sortAndSearchPanel {
+        left: 10%;
+        width: 77%;
+    }
+}
+
+@media (max-width: 700px) {
+    .sortAndSearchPanel {
+        min-width: 50px;
+        left: 0;
+        width: 95%;
+    }
+
+    .searchBlock {
+        position: absolute;
+        top: 6px;
+        left: 0;
+        width: 100%;
+    }
+
+    .sortBlock {
+        position: absolute;
+        top: 58px;
+        left: 0;
+        width: 45%;
+    }
+
+    .selectCuisineBlock {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 45%;
+    }
+}

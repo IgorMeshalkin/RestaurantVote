@@ -8,12 +8,12 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MealDto {
     private String name;
-    private double price;
+    private int weight;
 
     public static MealDto fromMeal(Meal meal) {
         MealDto mealDto = new MealDto();
         mealDto.setName(meal.getName());
-        mealDto.setPrice(meal.getPrice());
+        mealDto.setWeight(meal.getWeight());
         return mealDto;
     }
 }
