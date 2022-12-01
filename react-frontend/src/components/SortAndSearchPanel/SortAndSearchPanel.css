@@ -42,7 +42,7 @@
     }
 }
 
-@media (max-width: 930px) {
+@media (max-width: 960px) {
     .sortAndSearchPanel {
         left: 10%;
         width: 77%;

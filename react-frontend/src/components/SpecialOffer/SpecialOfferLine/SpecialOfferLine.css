@@ -1,0 +1,8 @@
+.specialOfferLine {
+    height: 100%;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 0.8s;
+}

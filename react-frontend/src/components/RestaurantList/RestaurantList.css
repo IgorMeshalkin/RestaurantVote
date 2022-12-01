@@ -46,7 +46,7 @@
     }
 }
 
-@media (max-width: 930px) {
+@media (max-width: 960px) {
     .restList {
         margin-left: 10%;
         width: 80%;

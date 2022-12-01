@@ -1,0 +1,88 @@
+.specialOffer {
+    height: 85vh;
+    width: 35%;
+    position: fixed;
+    top: 11vh;
+    right: 4%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.somethingNewText {
+    width: 60%;
+    height: 40px;
+    text-align: center;
+    color: #00BB22;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrowArea {
+    height: 100%;
+    width: 10%;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrowArea.right {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.specialOfferCenter {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.areaOfVisibility {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.wantToTry {
+    width: 50%;
+    height: 40px;
+    margin-bottom: 0;
+    margin-top: auto;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #C80303;
+    background-color: #f0f0f0;
+    border: darkgray 1px solid;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.wantToTry:hover {
+    background-color: #d9d9d9;
+}
+
+.wantToTry:active {
+    border: dimgrey 1px solid;
+}
+
+@media (max-width: 1100px) {
+    .specialOffer {
+        right: 3%;
+    }
+}
+
+@media (max-width: 960px) {
+    .specialOffer {
+        display: none;
+    }
+}

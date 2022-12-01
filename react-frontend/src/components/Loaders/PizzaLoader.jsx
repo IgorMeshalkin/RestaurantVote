@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import './Loader.css'
+import './Loaders.css'
 import pizza0 from '../../images/loader/pizza0.png'
 import pizza1 from '../../images/loader/pizza1.png'
 import pizza2 from '../../images/loader/pizza2.png'
