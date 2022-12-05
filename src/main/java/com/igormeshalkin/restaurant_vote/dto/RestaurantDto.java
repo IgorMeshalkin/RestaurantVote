@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantDto {
+    private Long id;
     private String name;
     private String address;
     private String lunchTime;
@@ -22,6 +23,7 @@ public class RestaurantDto {
 
     public static RestaurantDto fromRestaurant(Restaurant restaurant) {
         RestaurantDto restaurantDto = new RestaurantDto();
+        restaurantDto.setId(restaurant.getId());
         restaurantDto.setName(restaurant.getName());
         restaurantDto.setAddress(restaurant.getAddress());
         restaurantDto.setLunchTime(restaurant.getLunchTime());

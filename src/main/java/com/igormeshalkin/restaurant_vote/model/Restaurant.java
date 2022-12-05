@@ -1,8 +1,11 @@
 package com.igormeshalkin.restaurant_vote.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +38,16 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Vote> votes;
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference
+    private List<SpecialOffer> specialOffer;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     //constructor for the tests
     public Restaurant(Long id, String name, List list) {

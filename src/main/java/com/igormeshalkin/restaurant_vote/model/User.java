@@ -1,11 +1,13 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +34,10 @@ public class User extends BaseEntity {
 
     @Column(name = "active")
     private boolean active;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Restaurant> restaurants;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vote_id")

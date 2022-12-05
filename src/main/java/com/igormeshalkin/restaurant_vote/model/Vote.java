@@ -19,5 +19,4 @@ public class Vote extends BaseEntity {
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
     private Restaurant restaurant;
-
 }

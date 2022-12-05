@@ -62,6 +62,7 @@ public class RestaurantRestController {
     @PreAuthorize("hasAuthority('everything:read entries')")
     @ApiOperation("Get restaurant by id")
     public ResponseEntity<RestaurantDto> getById(@PathVariable Long id) {
+        System.out.println(id);
         Restaurant restaurant = restaurantService.findById(id);
         if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,18 +72,18 @@ public class RestaurantRestController {
         }
     }
 
-    @GetMapping("/{name}")
-    @PreAuthorize("hasAuthority('everything:read entries')")
-    @ApiOperation("Get restaurant by name")
-    public ResponseEntity<RestaurantDto> getByName(@PathVariable String name) {
-        Restaurant restaurant = restaurantService.findByName(name);
-        if (restaurant == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-    }
+//    @GetMapping("/{name}")
+//    @PreAuthorize("hasAuthority('everything:read entries')")
+//    @ApiOperation("Get restaurant by name")
+//    public ResponseEntity<RestaurantDto> getByName(@PathVariable String name) {
+//        Restaurant restaurant = restaurantService.findByName(name);
+//        if (restaurant == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        } else {
+//            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
+//            return new ResponseEntity<>(result, HttpStatus.OK);
+//        }
+//    }
 
     @PostMapping
     @PreAuthorize("hasAuthority('everything:change entries')")

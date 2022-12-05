@@ -1,11 +1,15 @@
 package com.igormeshalkin.restaurant_vote.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.model.Role;
 import com.igormeshalkin.restaurant_vote.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,6 +22,7 @@ public class UserDto {
     private String lastName;
     private Role role;
     private boolean active;
+    private List<RestaurantDto> restaurants;
 
     public static UserDto fromUser(User user) {
         UserDto userDto = new UserDto();
@@ -27,6 +32,11 @@ public class UserDto {
         userDto.setLastName(user.getLastName());
         userDto.setRole(user.getRole());
         userDto.setActive(user.isActive());
+
+        List<RestaurantDto> restaurants = new ArrayList<>();
+        user.getRestaurants().forEach(rest -> restaurants.add(RestaurantDto.fromRestaurant(rest)));
+        userDto.setRestaurants(restaurants);
+
         return userDto;
     }
 }
