@@ -5,13 +5,19 @@ export const usePressingButton = (buttonRef) => {
     const [isPressing, setIsPressing] = useState(false)
 
     useEffect(() => {
-        buttonRef.current.addEventListener('mousedown', (event) => setIsPressing(true))
-        buttonRef.current.addEventListener('mouseup', (event) => setIsPressing(false))
+        const ref = buttonRef.current;
+
+        const setTrue = (event) => setIsPressing(true);
+        const setFalse = (event) => setIsPressing(false);
+
+        ref.addEventListener('mousedown', setTrue);
+        ref.addEventListener('mouseup', setFalse);
+
         return () => {
-            buttonRef.current.removeEventListener('mousedown', (event) => setIsPressing(true))
-            buttonRef.current.removeEventListener('mouseup', (event) => setIsPressing(false))
+            ref.removeEventListener('mousedown', setTrue);
+            ref.removeEventListener('mouseup', setFalse);
         }
-    }, [])
+    }, []);
 
     return isPressing
 };

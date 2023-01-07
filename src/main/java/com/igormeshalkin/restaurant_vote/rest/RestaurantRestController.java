@@ -1,8 +1,11 @@
 package com.igormeshalkin.restaurant_vote.rest;
 
 import com.igormeshalkin.restaurant_vote.dto.RestaurantDto;
+import com.igormeshalkin.restaurant_vote.dto.RestaurantFullDto;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.model.СuisineType;
+import com.igormeshalkin.restaurant_vote.repository.CommentRepository;
+import com.igormeshalkin.restaurant_vote.repository.VoteRepository;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.PageRequest;
@@ -23,9 +26,13 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600, exposedHeaders = "x-total-count")
 public class RestaurantRestController {
     private final RestaurantService restaurantService;
+    private final CommentRepository commentRepository;
+    private final VoteRepository voteRepository;
 
-    public RestaurantRestController(RestaurantService restaurantService) {
+    public RestaurantRestController(RestaurantService restaurantService, CommentRepository commentRepository, VoteRepository voteRepository) {
         this.restaurantService = restaurantService;
+        this.commentRepository = commentRepository;
+        this.voteRepository = voteRepository;
     }
 
     @GetMapping
@@ -61,29 +68,16 @@ public class RestaurantRestController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('everything:read entries')")
     @ApiOperation("Get restaurant by id")
-    public ResponseEntity<RestaurantDto> getById(@PathVariable Long id) {
-        System.out.println(id);
+    public ResponseEntity<RestaurantFullDto> getById(@PathVariable Long id) {
         Restaurant restaurant = restaurantService.findById(id);
+
         if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
+            RestaurantFullDto result = RestaurantFullDto.fromRestaurant(restaurant);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
-
-//    @GetMapping("/{name}")
-//    @PreAuthorize("hasAuthority('everything:read entries')")
-//    @ApiOperation("Get restaurant by name")
-//    public ResponseEntity<RestaurantDto> getByName(@PathVariable String name) {
-//        Restaurant restaurant = restaurantService.findByName(name);
-//        if (restaurant == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
-//            RestaurantDto result = RestaurantDto.fromRestaurant(restaurant);
-//            return new ResponseEntity<>(result, HttpStatus.OK);
-//        }
-//    }
 
     @PostMapping
     @PreAuthorize("hasAuthority('everything:change entries')")

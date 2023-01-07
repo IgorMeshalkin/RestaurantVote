@@ -4,7 +4,7 @@ import image from '../../images/menu.png'
 import CloseButton from "../UI/CloseButton/CloseButton";
 
 const Menu = ({restaurant, active, setActive}) => {
-    const[date, setDate] = useState('')
+    const [date, setDate] = useState('')
 
     useEffect(() => {
         if (restaurant) {
@@ -48,9 +48,11 @@ const Menu = ({restaurant, active, setActive}) => {
     return (
         <div className={active ? 'background active' : 'background'} onClick={() => setActive(false)}>
             <div className={active ? 'window active' : 'window'} onClick={event => event.stopPropagation()}>
-                <div className="closeButton">
-                    <CloseButton onClick={() => setActive(false)}/>
-                </div>
+                <CloseButton
+                    onClick={() => setActive(false)}
+                    top={5}
+                    right={5}
+                />
                 <span className="title">Меню ресторана "{restaurant.name}" на {date}</span>
                 <table className="table">
                     <tbody className="tableBody">

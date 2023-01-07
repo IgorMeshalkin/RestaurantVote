@@ -1,0 +1,63 @@
+.photoViewerBackground {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 999999;
+    font-family: 'Signika Negative', sans-serif;
+}
+
+.photoViewerBackground.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.photoViewerImage {
+    transform: scale(0.5);
+    transition: 0.3s;
+    width: auto;
+    max-height: 80vh;
+    max-width: 80vw;
+    object-fit: scale-down;
+}
+
+.photoViewerImage.active {
+    transform: scale(1);
+}
+
+.photoViewerImage:hover {
+    cursor: zoom-out;
+}
+
+.photoViewerLeftArrowContainer {
+    position: absolute;
+    left: 10px;
+}
+
+.photoViewerRightArrowContainer {
+    position: absolute;
+    right: 10px
+}
+
+.photoViewerInfo {
+    position: absolute;
+    left: 10px;
+    top: 10vh;
+    color: #f0f0f0;
+    font-size: 18px;
+}
+
+.photoViewerCloseButtonContainer {
+    position: absolute;
+    right: 10px;
+    top: 10vh;
+}
+

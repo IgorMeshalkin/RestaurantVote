@@ -9,11 +9,10 @@
     position: absolute;
     top: 7px;
     left: 12px;
-    transition: transform .5s;
 }
 
-.logoPizza:hover {
-    animation: 5s pizzaRotate infinite linear;
+.logoPizza.rotate {
+    animation: 2s pizzaRotate infinite linear;
 }
 
 .logoPizzaOuterBorder {
@@ -68,6 +67,7 @@
     left: 5px;
     bottom: 1px;
     white-space: nowrap;
+    color: black;
 }
 
 .lunch {

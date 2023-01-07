@@ -1,0 +1,33 @@
+.main {
+    width: 400px;
+    margin-top: 12vh;
+    margin-left: 5%;
+}
+
+.bigPhoto {
+    border: 2px white solid;
+    border-bottom-style: none;
+    box-sizing: border-box;
+    width: 400px;
+    height: 300px;
+    object-fit: scale-down;
+}
+
+
+.regularPhoto {
+    border: 2px white solid;
+    border-top-style: none;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100px;
+    height: 65px;
+    object-fit: cover;
+}
+
+.bigPhoto:hover {
+    cursor: zoom-in;
+}
+
+.regularPhoto:hover {
+    cursor: zoom-in;
+}

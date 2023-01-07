@@ -4,6 +4,13 @@
     width: 24px;
     border-radius: 50%;
     cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
 }
 
 .right {
@@ -30,8 +37,9 @@
     transform: rotate(45deg);
 }
 
-.main:hover {
-    background-color: #f0f0f0;
+.main:hover .background {
+    background-color: #dddddd;
+    opacity: 0.5;
 }
 
 .main:active .right {

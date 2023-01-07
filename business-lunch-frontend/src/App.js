@@ -1,54 +1,35 @@
 import './App.css';
 import React, {useState} from "react";
-import Menu from "./components/Menu/Menu";
-import RestaurantList from "./components/RestaurantList/RestaurantList";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import Restaurant from "./pages/Restaurant";
+import Main from "./pages/Main"
 import Header from "./components/Header/Header";
-import SortAndSearchPanel from "./components/SortAndSearchPanel/SortAndSearchPanel";
-import SpecialOffer from "./components/SpecialOffer/SpecialOffer";
+import {AuthContext} from "./context/context";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
-    const [menu, setMenu] = useState(false)
-    const [contentForMenu, setContentForMenu] = useState('')
-
-    const [valueForSort, setValueForSort] = useState('rating')
-    const [searchQuery, setSearchQuery] = useState('')
-    const [selectedCuisine, setSelectedCuisine] = useState('')
-    const [specialOfferRestaurant, setSpecialOfferRestaurant] = useState(null)
-
-    function showMenu(restaurant) {
-        if (menu) {
-            setMenu(false)
-        } else {
-            setMenu(true)
-            setContentForMenu(restaurant)
-        }
-    }
-
-    function trySpecialOffer(restaurant) {
-        setSpecialOfferRestaurant(restaurant)
-    }
+    const [isAuth, setIsAuth] = useState(false)
 
     return (
-        <div className="App">
-            <SpecialOffer
-                trySpecialOffer={trySpecialOffer}
-            />
-            <RestaurantList
-                showMenu={showMenu}
-                valueForSort={valueForSort}
-                searchQuery={searchQuery}
-                selectedCuisine={selectedCuisine}
-                specialOfferRestaurant={specialOfferRestaurant}
-                setSpecialOfferRestaurant={setSpecialOfferRestaurant}
-            />
-            <SortAndSearchPanel
-                selectValueForSort={setValueForSort}
-                getValueForFilter={setSearchQuery}
-                selectСuisine={setSelectedCuisine}
-            />
-            <Header/>
-            <Menu restaurant={contentForMenu} active={menu} setActive={setMenu}/>
-        </div>);
+        <AuthContext.Provider value={{
+            isAuth,
+            setIsAuth
+        }}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Header/>}>
+                        <Route index element={<Main/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="/restaurant/:id" element={<Restaurant/>}/>
+                        <Route
+                            path="*"
+                            element={<Navigate to="/" replace />}
+                        />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </AuthContext.Provider>
+    );
 }
 
 export default App;

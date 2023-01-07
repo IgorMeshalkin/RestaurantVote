@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import cl from './RestaurantItem.module.css'
 import CuisineLogo from "./CuisineLogo/CuisineLogo";
 import RegularButton from "../../UI/RegularButton/RegularButton";
+import {useNavigate} from "react-router-dom";
 
 const RestaurantItem = ({restaurant, showMenu}) => {
+    const navigate = useNavigate()
 
     function openMenu() {
         showMenu(restaurant)
@@ -13,7 +15,7 @@ const RestaurantItem = ({restaurant, showMenu}) => {
         <div className={cl.item}>
             <CuisineLogo cuisine={restaurant.cuisine}/>
             <div className={cl.center}>
-                <div>
+                <div onClick={() => navigate('/restaurant/' + restaurant.id)} className={cl.name}>
                     {restaurant.name}
                 </div>
                 <div className={cl.rating}>

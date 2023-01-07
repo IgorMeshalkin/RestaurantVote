@@ -4,3 +4,19 @@
     width: 100%;
     font-family: 'Signika Negative', sans-serif;
 }
+
+.restaurantPage {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.commentsContainer {
+    margin-left: 5%;
+}
+
+.allInCenter {
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

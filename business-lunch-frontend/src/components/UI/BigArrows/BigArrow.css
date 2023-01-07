@@ -1,0 +1,75 @@
+.bigArrowMain {
+    position: relative;
+    width: 38px;
+    height: 38px;
+}
+
+.bigArrowBackground {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+.bigArrowTopElement{
+    width: 20px;
+    height: 20px;
+    border: 1px #f0f0f0 none;
+    border-right-style: solid;
+}
+
+.bigArrowBottomElement{
+    width: 20px;
+    height: 20px;
+    border: 1px #f0f0f0 none;
+    border-right-style: solid;
+}
+
+.bigArrowTopElement.leftDirection {
+    transform: rotate(55deg);
+    position: absolute;
+    top: -5px;
+}
+
+.bigArrowBottomElement.leftDirection {
+    transform: rotate(-55deg);
+    position: absolute;
+    top: 23px;
+}
+
+.bigArrowTopElement.rightDirection {
+    transform: rotate(-55deg);
+    position: absolute;
+    top: 12px;
+    left: 5px;
+}
+
+.bigArrowBottomElement.rightDirection {
+    transform: rotate(55deg);
+    position: absolute;
+    top: 7px;
+    left: 5px;
+}
+
+.bigArrowMain:hover {
+    cursor: pointer;
+}
+
+.bigArrowMain:hover .bigArrowBackground{
+        opacity: 0.5;
+}
+
+.bigArrowMain:active .bigArrowBottomElement {
+    border: 2px #f0f0f0 none;
+    border-right-style: solid;
+}
+
+.bigArrowMain:active .bigArrowTopElement {
+    border: 2px #f0f0f0 none;
+    border-right-style: solid;
+}

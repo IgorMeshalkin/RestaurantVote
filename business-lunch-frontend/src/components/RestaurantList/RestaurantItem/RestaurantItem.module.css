@@ -6,7 +6,7 @@
     border-bottom-style: solid;
     border-right-style: solid;
     margin-top: 10px;
-    border-radius: 5px;
+    border-radius: 6px;
     min-width: 566px;
     text-align: left;
 }
@@ -50,6 +50,10 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 2px;
+}
+
+.name {
+    cursor: pointer;
 }
 
 .rating {

@@ -1,16 +1,28 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Logo.css'
 import pizza from "../../../images/loader/pizza1.png";
 
 const Logo = () => {
+    const [isRotate, setIsRotate] = useState(false)
+
     function Pizza() {
         return (
-            <img src={pizza} className="logoPizza"/>
+            <img
+                src={pizza}
+                className={isRotate ? "logoPizza rotate" : "logoPizza"}
+            />
         );
     }
 
+    function startRotate() {
+        if(!isRotate) {
+            setIsRotate(true)
+            setTimeout(() => setIsRotate(false), 2000)
+        }
+    }
+
     return (
-        <div className="logoMain">
+        <div className="logoMain" onClick={startRotate}>
             <div className="logoPizzaOuterBorder"/>
             <div className="logoPizzaInnerBorder"/>
             <div className="hiderBorder"/>
@@ -30,5 +42,6 @@ const Logo = () => {
         </div>
     );
 };
+
 
 export default Logo;

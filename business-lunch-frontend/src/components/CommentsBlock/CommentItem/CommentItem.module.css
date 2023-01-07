@@ -1,0 +1,21 @@
+.main {
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.main:hover {
+    background-color: #ededed;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.date {
+    color: grey;
+    margin-left: 10px;
+}
+
+.body {
+    word-wrap: break-word;
+}

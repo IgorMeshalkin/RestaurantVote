@@ -18,4 +18,13 @@ export default class RestaurantsAPI {
         });
         return response
     }
+
+    static async getById(id) {
+        const response = await axios.get(REST_URL + '/' + id,{
+            auth: {
+                username: 'admin', password: 'admin'
+            }
+        });
+        return response
+    }
 }

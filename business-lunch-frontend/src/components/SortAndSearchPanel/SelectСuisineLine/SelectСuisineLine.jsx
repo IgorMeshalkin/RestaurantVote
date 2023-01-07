@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import './SelectСuisineLine.css'
 import Arrow from "../../UI/Arrows/Arrow";
 import SelectCuisineButton from "./SelectСuisineButton/SelectСuisineButton";
+import {usePressingButton} from "../../../hooks/usePressingButton";
 
 const SelectCuisineLine = ({cuisines, setCuisines, selectСuisine}) => {
     const lineRef = useRef()
@@ -11,12 +12,14 @@ const SelectCuisineLine = ({cuisines, setCuisines, selectСuisine}) => {
     const leftRedSignal = useRef()
     const rightRedSignal = useRef()
 
-    const [arrowsPressed, setArrowsPressed] = useState({left: false, right: false})
     const [linePosition, setLinePosition] = useState(0)
     const [limitPositions, setLimitPositions] = useState({left: true, right: false})
     const [lineLength, setLineLength] = useState(0)
     const [step, setStep] = useState(0)
     const [currentCuisine, setCurrentCuisine] = useState('ALL')
+
+    const isLeftArrowPressing = usePressingButton(leftArrow)
+    const isRightArrowPressing = usePressingButton(rightArrow)
 
     useEffect(() => {
         setLineLength(cuisines.length * 130)
@@ -24,57 +27,20 @@ const SelectCuisineLine = ({cuisines, setCuisines, selectСuisine}) => {
     }, [])
 
     useEffect(() => {
-        rightArrow.current.addEventListener('mousedown', (event) => setArrowsPressed({
-            ...arrowsPressed,
-            right: true
-        }));
-        rightArrow.current.addEventListener('mouseup', (event) => setArrowsPressed({
-            ...arrowsPressed,
-            right: false
-        }));
-        leftArrow.current.addEventListener('mousedown', (event) => setArrowsPressed({
-            ...arrowsPressed,
-            left: true
-        }));
-        leftArrow.current.addEventListener('mouseup', (event) => setArrowsPressed({
-            ...arrowsPressed,
-            left: false
-        }));
-        return () => {
-            rightArrow.current.removeEventListener('mousedown', (event) => setArrowsPressed({
-                ...arrowsPressed,
-                right: true
-            }));
-            rightArrow.current.removeEventListener('mouseup', (event) => setArrowsPressed({
-                ...arrowsPressed,
-                right: false
-            }));
-            leftArrow.current.removeEventListener('mousedown', (event) => setArrowsPressed({
-                ...arrowsPressed,
-                left: true
-            }));
-            leftArrow.current.removeEventListener('mouseup', (event) => setArrowsPressed({
-                ...arrowsPressed,
-                left: false
-            }));
-        }
-    }, [])
-
-    useEffect(() => {
-        if (arrowsPressed.right && limitPositions.right) {
+        if (isRightArrowPressing && limitPositions.right) {
             lineRef.current.setAttribute('style', 'left:' + (linePosition - 10) + 'px')
             rightRedSignal.current.setAttribute('style', 'box-shadow: 0 0 8px 2px red;')
-        } else if (!arrowsPressed.right) {
+        } else if (!isRightArrowPressing) {
             rightRedSignal.current.setAttribute('style', 'box-shadow: none;')
         }
 
-        if (arrowsPressed.left && limitPositions.left) {
+        if (isLeftArrowPressing && limitPositions.left) {
             lineRef.current.setAttribute('style', 'left:' + (linePosition + 10) + 'px')
             leftRedSignal.current.setAttribute('style', 'box-shadow: 0 0 8px 2px red;')
-        } else if (!arrowsPressed.left) {
+        } else if (!isLeftArrowPressing) {
             leftRedSignal.current.setAttribute('style', 'box-shadow: none;')
         }
-    }, [arrowsPressed])
+    }, [isLeftArrowPressing, isRightArrowPressing])
 
     function getLineVisorWidth() {
         return parseInt(window.getComputedStyle(innerLineVisorRef.current).width.replace('px', ''), 10)
@@ -93,7 +59,7 @@ const SelectCuisineLine = ({cuisines, setCuisines, selectСuisine}) => {
         lineRef.current.setAttribute('style', 'left:' + (linePosition + step) + 'px')
         setLinePosition(linePosition + step)
 
-        if (limitPositions.left && arrowsPressed.left) {
+        if (limitPositions.left && isLeftArrowPressing) {
             lineRef.current.setAttribute('style', 'left:' + (linePosition + 10) + 'px')
         }
     }
@@ -112,8 +78,6 @@ const SelectCuisineLine = ({cuisines, setCuisines, selectСuisine}) => {
             setLimitPositions({...limitPositions, right: true})
         }
     }
-
-
 
     return (
         <div className="externalLineVisor">

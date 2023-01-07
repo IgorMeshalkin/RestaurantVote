@@ -21,6 +21,9 @@ public class Restaurant extends BaseEntity {
     @Column(name="address")
     private String address;
 
+    @Column(name="phone_number")
+    private String phoneNumber;
+
     @Column(name="lunch_time")
     private String lunchTime;
 
@@ -35,9 +38,17 @@ public class Restaurant extends BaseEntity {
     @JsonManagedReference
     private List<Meal> menu;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Photo> photos;
+
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Vote> votes;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Comment> comments;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -49,13 +60,6 @@ public class Restaurant extends BaseEntity {
     @JsonBackReference
     private User user;
 
-    //constructor for the tests
-    public Restaurant(Long id, String name, List list) {
-        this.id = id;
-        this.name = name;
-        this.votes = list;
-    }
-
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -63,6 +67,7 @@ public class Restaurant extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", price='" + price + '\'' +
+                ", phone='" + phoneNumber + '\'' +
                 '}';
     }
 }

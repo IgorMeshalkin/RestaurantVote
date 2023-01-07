@@ -7,7 +7,7 @@ const DropDownList = (props) => {
     const dropDownRef = useRef()
 
     useEffect(() => {
-        const dropDownHeight = (props.selectList.length * 41)
+        const dropDownHeight = (props.selectList.length * 39)
         if (props.dropDownListIsOpen) {
             dropDownRef.current.setAttribute('style', 'height:' + dropDownHeight + 'px;')
         } else {

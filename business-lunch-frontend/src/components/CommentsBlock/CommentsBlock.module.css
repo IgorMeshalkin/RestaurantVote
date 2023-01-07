@@ -1,0 +1,86 @@
+.outMain {
+    margin-top: 20px;
+    background-color: #b6b6b6;
+    border-radius: 6px;
+    transition: 0.3s;
+    padding: 5px 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.innerMain {
+    background-color: white;
+    border-radius: 6px;
+    padding: 5px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.hiddenElement {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 10px;
+}
+
+.header {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+.titleMain {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.arrowContainer {
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.newCommentButtonContainer {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.footer {
+    margin-top: 10px;
+    display: flex;
+}
+
+.showMoreButton {
+    color: #999999;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: auto;
+}
+
+.notShowMoreButton {
+    display: none;
+}
+
+.upButtonContainer {
+    float: right;
+}
+
+
+.upButtonContainerCenter {
+    margin: auto;
+}
+
+.commentCount {
+    transition: 0.3s;
+}
+
+.commentCountRefusal{
+    transition: 0.3s;
+    font-size: 18px;
+    color: #C80303;
+}

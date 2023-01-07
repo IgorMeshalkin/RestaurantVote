@@ -1,0 +1,7 @@
+.background {
+    background-color: #f0f0f0;
+    border: #d2d2d2 solid 2px;
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 200px;
+}

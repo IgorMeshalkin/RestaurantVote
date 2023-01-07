@@ -39,6 +39,10 @@ public class User extends BaseEntity {
     @JsonManagedReference
     private List<Restaurant> restaurants;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Comment> comments;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vote_id")
     @JsonBackReference
