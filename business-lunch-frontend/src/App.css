@@ -7,7 +7,13 @@
 
 .restaurantPage {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
+}
+
+.photoAndInfoContainer {
+    display: flex;
+    margin-left: 5%;
 }
 
 .commentsContainer {

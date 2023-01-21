@@ -10,8 +10,7 @@ import pizza from '../../images/loader/pizza1.png'
 import {validateCredentialsForRegistration} from "../../utils/credentials";
 
 const LoginAndRegistrationForm = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext)
-    const {currentUser, setCurrentUser} = useContext(AuthContext)
+    const {setCurrentUser} = useContext(AuthContext)
 
     const navigate = useNavigate();
 
@@ -76,7 +75,6 @@ const LoginAndRegistrationForm = () => {
     }
 
     function successfulLogin(user) {
-        setIsAuth(true)
         setCurrentUser(user)
         navigate(-1)
     }

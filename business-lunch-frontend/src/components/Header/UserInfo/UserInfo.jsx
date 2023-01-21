@@ -1,10 +1,11 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import cl from './UserInfo.module.css'
 import {AuthContext} from "../../../context/context";
-import UserInfoMenu from "./UserInfoMenu/UserInfoMenu";
+import UserInfoButtons from "./UserInfoButtons/UserInfoButtons";
 import {useNavigate} from "react-router-dom";
+import UserInfoMenu from "../UserInfoMenu/UserInfoMenu";
 
-const UserInfo = () => {
+const UserInfo = ({menuIsOpen, setMenuIsOpen}) => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -12,7 +13,7 @@ const UserInfo = () => {
         <div className={cl.userInfoMain}>
             {
                 isAuth ?
-                    <UserInfoMenu/> :
+                    <UserInfoButtons pressMenuButton={() => setMenuIsOpen(!menuIsOpen)}/> :
                     <span onClick={() => navigate('/login')} className={cl.signInButton}>Войти</span>
             }
         </div>

@@ -28,13 +28,15 @@ const Restaurant = () => {
         <div className="App">
             {restaurant &&
                 <div className="restaurantPage">
-                    <RestaurantPhotosBlock
-                        photos={restaurant.photos}
-                        getWidth={setPhotoWidth}/>
+                    <div className="photoAndInfoContainer">
+                        <RestaurantPhotosBlock
+                            photos={restaurant.photos}
+                            getWidth={setPhotoWidth}/>
 
-                    <RestaurantInfoBlock
-                        restaurant={restaurant}
-                        getWidth={setInfoWidth}/>
+                        <RestaurantInfoBlock
+                            restaurant={restaurant}
+                            getWidth={setInfoWidth}/>
+                    </div>
 
                     <div className="commentsContainer" style={{width: photoWidth + infoWidth + "px"}}>
                         <CommentsBlock

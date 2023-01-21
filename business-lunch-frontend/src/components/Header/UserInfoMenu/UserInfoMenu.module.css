@@ -1,0 +1,30 @@
+.uimBackground {
+    position: fixed;
+    right: 0;
+    top: -130px;
+    width: 180px;
+    background-color: #f0f0f0;
+    border: 2px #d2d2d2 none;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-bottom-left-radius: 20px;
+    transition: 0.8s;
+    z-index: 999997;
+}
+
+.uimButton {
+    font-family: 'Signika Negative', sans-serif;
+    color: #5a5a5a;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: right;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.uimButton:hover {
+    background-color: #d2d2d2;
+}
+

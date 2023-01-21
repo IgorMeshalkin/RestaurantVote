@@ -9,20 +9,27 @@ import LoginPage from "./pages/LoginPage";
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
 
     useEffect(() => {
         if(localStorage.getItem('currentUser') !== null) {
-            setCurrentUser(JSON.parse(localStorage.getItem('currentUser')))
+            const userFromLocalStorage = JSON.parse(localStorage.getItem('currentUser'))
+            setCurrentUser(userFromLocalStorage)
             setIsAuth(true)
+            setIsAdmin(userFromLocalStorage.role === 'ADMIN')
         }
     }, [])
 
     useEffect(() => {
         if (currentUser === null) {
             localStorage.removeItem('currentUser')
+            setIsAuth(false)
+            setIsAdmin(false)
         } else {
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            setIsAuth(true)
+            setIsAdmin(currentUser.role === 'ADMIN')
         }
     }, [currentUser])
 
@@ -30,6 +37,8 @@ function App() {
         <AuthContext.Provider value={{
             isAuth,
             setIsAuth,
+            isAdmin,
+            setIsAdmin,
             currentUser,
             setCurrentUser
         }}>
