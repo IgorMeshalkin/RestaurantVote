@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Restaurant from "./pages/Restaurant";
 import Main from "./pages/Main"
@@ -9,11 +9,29 @@ import LoginPage from "./pages/LoginPage";
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
+    const [currentUser, setCurrentUser] = useState(null)
+
+    useEffect(() => {
+        if(localStorage.getItem('currentUser') !== null) {
+            setCurrentUser(JSON.parse(localStorage.getItem('currentUser')))
+            setIsAuth(true)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (currentUser === null) {
+            localStorage.removeItem('currentUser')
+        } else {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+    }, [currentUser])
 
     return (
         <AuthContext.Provider value={{
             isAuth,
-            setIsAuth
+            setIsAuth,
+            currentUser,
+            setCurrentUser
         }}>
             <BrowserRouter>
                 <Routes>

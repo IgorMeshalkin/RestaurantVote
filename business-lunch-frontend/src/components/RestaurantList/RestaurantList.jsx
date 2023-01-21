@@ -17,9 +17,9 @@ const RestaurantList = (props) => {
     const [totalPages, setTotalPages] = useState(0)
 
     useEffect(() => {
-        if (!props.specialOfferRestaurant && localStorage.length > 0) {
+        if (!props.specialOfferRestaurant && localStorage.getItem('scrollPosition') !== null) {
             window.scrollTo(0, Number(localStorage.getItem('scrollPosition')))
-            localStorage.clear();
+            localStorage.removeItem('scrollPosition');
         }
     }, [allRestaurants]);
 
@@ -29,7 +29,7 @@ const RestaurantList = (props) => {
             localStorage.setItem('restaurants', JSON.stringify(allRestaurants));
             window.scrollTo(0, 0)
             setAllRestaurants([props.specialOfferRestaurant])
-        } else if (!props.specialOfferRestaurant && localStorage.length > 0) {
+        } else if (!props.specialOfferRestaurant && localStorage.getItem('restaurants') !== null) {
             setAllRestaurants(JSON.parse(localStorage.getItem('restaurants')))
         }
     }, [props.specialOfferRestaurant])

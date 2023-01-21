@@ -1,0 +1,38 @@
+.eyeMain {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.eyeOutBorder {
+    border: 2px black solid;
+    height: 13px;
+    width: 20px;
+    border-radius: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.eyeInnerBorder {
+    border: 2px black solid;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.eyeLine {
+    height: 21px;
+    width: 2px;
+    background-color: black;
+    border: 1px white solid;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 1px;
+    left: 10px;
+}

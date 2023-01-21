@@ -1,24 +1,24 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './Logo.css'
-import pizza from "../../../images/loader/pizza1.png";
+import pizza from '../../../images/loader/pizza1.png'
 
 const Logo = () => {
-    const [isRotate, setIsRotate] = useState(false)
+    const [isPizzaRotate, setIsPizzaRotate] = useState(false)
+
+    function startRotate() {
+        if (!isPizzaRotate) {
+            setIsPizzaRotate(true)
+            setTimeout(() => setIsPizzaRotate(false), 2000)
+        }
+    }
 
     function Pizza() {
         return (
             <img
                 src={pizza}
-                className={isRotate ? "logoPizza rotate" : "logoPizza"}
+                className={isPizzaRotate ? "imgPizza rotate" : "imgPizza"}
             />
         );
-    }
-
-    function startRotate() {
-        if(!isRotate) {
-            setIsRotate(true)
-            setTimeout(() => setIsRotate(false), 2000)
-        }
     }
 
     return (
@@ -26,6 +26,7 @@ const Logo = () => {
             <div className="logoPizzaOuterBorder"/>
             <div className="logoPizzaInnerBorder"/>
             <div className="hiderBorder"/>
+
             <Pizza/>
 
             <div className="businessBlock">

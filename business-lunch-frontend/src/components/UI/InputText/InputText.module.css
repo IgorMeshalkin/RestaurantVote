@@ -1,0 +1,18 @@
+.inputTextMain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    height: 30px;
+    width: 90%;
+    border-radius: 15px;
+    border: 2px #d2d2d2 solid;
+    outline: none;
+    padding-left: 10px;
+}
+
+.input:focus {
+    border: 2px #00BB22 solid;
+}

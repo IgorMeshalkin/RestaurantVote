@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,28 +38,19 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Restaurant> restaurants;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Comment> comments;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vote_id")
     @JsonBackReference
+    @JsonIgnore
     private Vote vote;
-
-
-    //constructor for the tests
-    public User(Long id, String username, String password, String firstName, String lastName, Role role, boolean active) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
-        this.active = active;
-    }
 
     @Override
     public String toString() {

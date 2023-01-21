@@ -37,15 +37,15 @@
     transform: rotate(45deg);
 }
 
-.main:hover .background {
+.userInfoMenuButton:hover .background {
     background-color: #dddddd;
     opacity: 0.5;
 }
 
-.main:active .right {
+.userInfoMenuButton:active .right {
     border-color: black;
 }
 
-.main:active .left {
+.userInfoMenuButton:active .left {
     border-color: black;
 }

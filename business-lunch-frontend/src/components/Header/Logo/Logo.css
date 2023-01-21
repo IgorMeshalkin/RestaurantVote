@@ -4,14 +4,14 @@
     cursor: pointer;
 }
 
-.logoPizza {
-    height: 55px;
+.imgPizza {
     position: absolute;
+    height: 55px;
     top: 7px;
     left: 12px;
 }
 
-.logoPizza.rotate {
+.imgPizza.rotate {
     animation: 2s pizzaRotate infinite linear;
 }
 
@@ -79,17 +79,8 @@
     left: 228px;
 }
 
-@keyframes pizzaRotate {
-    from {
-        transform: rotate(0)
-    }
-    to {
-        transform: rotate(360deg)
-    }
-}
-
 @media (max-width: 1100px) {
-    .logoPizza {
+    .imgPizza {
         height: 40px;
         top: 5px;
     }
@@ -116,7 +107,7 @@
 }
 
 @media (max-width: 960px) {
-    .logoPizza {
+    .imgPizza {
         height: 55px;
         top: 7px;
     }
@@ -143,7 +134,7 @@
 }
 
 @media (max-width: 700px) {
-    .logoPizza {
+    .imgPizza {
         height: 40px;
         top: 5px;
     }

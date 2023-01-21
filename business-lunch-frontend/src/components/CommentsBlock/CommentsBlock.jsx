@@ -15,7 +15,7 @@ const CommentsBlock = ({restaurantId, width}) => {
 
     const innerWindowRef = useRef()
     const outWindowRef = useRef()
-    const totalCommentHeight = useRef(50);
+    const totalCommentHeight = useRef(40);
     const hiddenElement = useRef()
 
     const [isOpen, setIsOpen] = useState(false)
@@ -88,10 +88,6 @@ const CommentsBlock = ({restaurantId, width}) => {
         innerWindowRef.current.setAttribute('style', 'height:' + totalCommentHeight.current + 'px')
     }
 
-    // function asd() {
-    //     return navigate("/");
-    // }
-
     return (<div className={cl.outMain} ref={outWindowRef}>
         <div className={cl.header}>
             <span className={cl.titleMain}>Комментарии (
@@ -131,14 +127,6 @@ const CommentsBlock = ({restaurantId, width}) => {
             }
         </div>
         <div className={cl.hiddenElement} ref={hiddenElement}/>
-
-
-
-        {/*<button style={{position: "fixed", top: "100px", left: "200px"}} onClick={asd}>PRINT</button>*/}
-        {/*<Link to={"/"}>*/}
-        {/*    <button style={{position: "fixed", top: "100px", left: "200px"}} onClick={asd}>PRINT</button>*/}
-        {/*</Link>*/}
-        {/*<button style={{position: "fixed", top: "300px", left: "200px"}} onClick={dsa}>ACTION</button>*/}
     </div>);
 };
 

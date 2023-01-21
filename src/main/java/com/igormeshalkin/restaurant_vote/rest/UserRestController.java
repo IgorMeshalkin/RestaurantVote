@@ -10,8 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600, exposedHeaders = "Username-Is-Duplicate")
 public class UserRestController {
     private final UserService userService;
 
@@ -19,17 +22,22 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping()
     @ApiOperation("Create new account")
-    public ResponseEntity<UserDto> create(@RequestBody User user) {
-        User result = userService.create(user);
-        return new ResponseEntity<>(UserDto.fromUser(result), HttpStatus.OK);
+    public ResponseEntity<UserDto> create(@RequestBody User user, HttpServletResponse response) {
+        if (!userService.checkForUserNameDuplicate(user)) {
+            User result = userService.create(user);
+            return new ResponseEntity<>(UserDto.fromUser(result), HttpStatus.OK);
+        } else {
+            response.addHeader("Username-Is-Duplicate", String.valueOf(1));
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('users:read your entries')")
     @ApiOperation("Get information about the current account")
-    public ResponseEntity<UserDto> get() {
+    public ResponseEntity<UserDto> getCurrentUser() {
         User user = SecurityUtil.getCurrentUser();
         return new ResponseEntity<>(UserDto.fromUser(user), HttpStatus.OK);
     }

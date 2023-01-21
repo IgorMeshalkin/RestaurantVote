@@ -3,7 +3,7 @@
     transition: 0.5s;
 }
 
-.main:hover {
+.userInfoMenuButton:hover {
     background-color: #ededed;
 }
 

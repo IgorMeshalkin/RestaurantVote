@@ -104,6 +104,11 @@ public class UserService {
         log.info("IN delete - user with id: \"{}\" successfully deleted", id);
     }
 
+    public boolean checkForUserNameDuplicate(User user) {
+        int result =  userRepository.checkForUserNameDuplicate(user.getUsername());
+        return result != 0;
+    }
+
     @Bean
     protected PasswordEncoder passwordEncoderFromUserService() {
         return new BCryptPasswordEncoder();

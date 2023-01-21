@@ -1,0 +1,48 @@
+.userInfoMenuMain {
+    position: relative;
+    margin: auto 0 auto auto;
+    display: flex;
+}
+
+.userInfoMenuButton {
+    height: 20px;
+    width: 25px;
+    margin: auto 0 auto auto;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.line1 {
+    height: 1px;
+    width: 25px;
+    border: 2px #acacac solid;
+    margin: 0 auto auto;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.line2 {
+    height: 1px;
+    width: 25px;
+    border: 2px #acacac solid;
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.line3 {
+    height: 1px;
+    width: 25px;
+    border: 2px #acacac solid;
+    margin: auto auto 0;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.currentUserName {
+    margin: auto 15px auto auto;
+    color: #acacac;
+    font-weight: bold;
+    font-family: 'Signika Negative', sans-serif;
+}

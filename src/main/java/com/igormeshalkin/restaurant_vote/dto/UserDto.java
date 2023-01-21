@@ -33,9 +33,11 @@ public class UserDto {
         userDto.setRole(user.getRole());
         userDto.setActive(user.isActive());
 
-        List<RestaurantDto> restaurants = new ArrayList<>();
-        user.getRestaurants().forEach(rest -> restaurants.add(RestaurantDto.fromRestaurant(rest)));
-        userDto.setRestaurants(restaurants);
+        if (user.getRestaurants() != null) {
+            List<RestaurantDto> restaurants = new ArrayList<>();
+            user.getRestaurants().forEach(rest -> restaurants.add(RestaurantDto.fromRestaurant(rest)));
+            userDto.setRestaurants(restaurants);
+        }
 
         return userDto;
     }

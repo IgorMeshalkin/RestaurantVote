@@ -1,0 +1,16 @@
+.userInfoMain {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    right: 5px;
+    z-index: 999998;
+    display: flex;
+}
+
+.signInButton {
+    margin: auto 15px auto auto;
+    color: #acacac;
+    font-weight: bold;
+    font-family: 'Signika Negative', sans-serif;
+    cursor: pointer;
+}
