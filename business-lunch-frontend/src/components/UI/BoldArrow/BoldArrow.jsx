@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import cl from './BoldArrow.module.css'
 
 const BoldArrow = ({direction}) => {

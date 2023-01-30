@@ -8,6 +8,8 @@
     justify-content: center;
     flex-wrap: wrap;
     transition: 0.8s;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .entrance {
@@ -24,12 +26,12 @@
     color: #00BB22;
     font-weight: bold;
     cursor: pointer;
-    margin: auto auto auto 20px;
+    margin: auto auto auto 10px;
 }
 
 .submitButtonContainer {
     height: 28px;
-    margin-right: 20px;
+    margin-right: 10px;
     margin-top: auto;
     margin-bottom: auto;
 }

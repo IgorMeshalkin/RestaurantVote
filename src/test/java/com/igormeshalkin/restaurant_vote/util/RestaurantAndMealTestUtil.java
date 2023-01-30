@@ -2,18 +2,18 @@
 //
 //import com.igormeshalkin.restaurant_vote.dto.RestaurantDto;
 //import com.igormeshalkin.restaurant_vote.model.Meal;
-//import com.igormeshalkin.restaurant_vote.model.Restaurant;
+//import com.igormeshalkin.restaurant_vote.model.RestaurantPage;
 //
 //import java.util.ArrayList;
 //import java.util.List;
 //import java.util.stream.Collectors;
 //
 //public class RestaurantAndMealTestUtil {
-//    private static final Restaurant restaurant1 = new Restaurant(1L, "Subway", new ArrayList<>());
-//    private static final Restaurant restaurant2 = new Restaurant(2L, "Starbucks", new ArrayList<>());
-//    private static final Restaurant restaurant3 = new Restaurant(3L, "KFC", new ArrayList<>());
-//    private static final Restaurant restaurantForCreate = new Restaurant(4L, "McDonald's", new ArrayList<>());
-//    private static final Restaurant restaurantForUpdate = new Restaurant(3L, "McDonald's", new ArrayList<>());
+//    private static final RestaurantPage restaurant1 = new RestaurantPage(1L, "Subway", new ArrayList<>());
+//    private static final RestaurantPage restaurant2 = new RestaurantPage(2L, "Starbucks", new ArrayList<>());
+//    private static final RestaurantPage restaurant3 = new RestaurantPage(3L, "KFC", new ArrayList<>());
+//    private static final RestaurantPage restaurantForCreate = new RestaurantPage(4L, "McDonald's", new ArrayList<>());
+//    private static final RestaurantPage restaurantForUpdate = new RestaurantPage(3L, "McDonald's", new ArrayList<>());
 //
 ////    private static final Meal meal1 = new Meal(1L, "Сендвич", 125.5);
 ////    private static final Meal meal2 = new Meal(2L, "Чай", 60);
@@ -50,18 +50,18 @@
 //        restaurant2.setMenu(getSecondMenu());
 //        restaurant3.setMenu(getThirdMenu());
 //
-//        List<Restaurant> restaurantList = new ArrayList<>();
+//        List<RestaurantPage> restaurantList = new ArrayList<>();
 //        restaurantList.add(restaurant1);
 //        restaurantList.add(restaurant2);
 //        restaurantList.add(restaurant3);
 //        return restaurantList.stream().map(RestaurantDto::fromRestaurant).collect(Collectors.toList());
 //    }
 //
-//    public static Restaurant getRestaurantForCreate() {
+//    public static RestaurantPage getRestaurantForCreate() {
 //        return restaurantForCreate;
 //    }
 //
-//    public static Restaurant getRestaurantForUpdate() {
+//    public static RestaurantPage getRestaurantForUpdate() {
 //        return restaurantForUpdate;
 //    }
 //

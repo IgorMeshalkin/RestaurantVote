@@ -1,0 +1,31 @@
+.meMain {
+    width: 100%;
+    transition: 0.5s;
+}
+
+.mePlusContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.meMeals-enter {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+.meMeals-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 500ms ease-in;
+}
+.meMeals-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+.meMeals-exit-active {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: all 500ms ease-in;
+}

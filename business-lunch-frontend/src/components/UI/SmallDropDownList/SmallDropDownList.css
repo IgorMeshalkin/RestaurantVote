@@ -1,0 +1,111 @@
+.sddlMain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:0;
+    right: 0;
+}
+
+.sddlDropDownPart {
+    height: 25px;
+    width: 80%;
+    border: 2px #d2d2d2 solid;
+    font-size: 14px;
+    border-top-left-radius: 13px;
+    border-bottom-left-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: 0.8s;
+}
+
+.sddlDropDownPart.active {
+    border: 2px #00BB22 solid;
+}
+
+.sddlButtonMain {
+    z-index: 9999998;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sddlButtonMain:hover {
+    background-color: #f2f2f2;
+}
+
+.sddlMain:hover .sddlDropDownPart {
+    border: 2px #00BB22 solid;
+    z-index: 9999998;
+}
+
+.sddlMain:hover .sddlArrowPart {
+    border: 2px #00BB22 solid;
+    border-left-style: none;
+}
+
+.sddlButton {
+    height: 26px;
+    width: 100%;
+    z-index: 9999998;
+    border: 1px #d2d2d2 none;
+    border-bottom-style: solid;
+    font-family: 'Signika Negative', sans-serif;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.sddlButtonText {
+    margin-right: 10px;
+}
+
+.sddlArrowPart {
+    background-color: #f0f0f0;
+    border: 2px #d2d2d2 solid;
+    border-left-style: none;
+    height: 26px;
+    width: 20%;
+    border-top-right-radius: 13px;
+    border-bottom-right-radius: 13px;
+    display: flex;
+    align-items: center;
+    transition: 0.8s;
+}
+
+.sddlArrowContainer {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    border: 2px #d2d2d2 solid;
+    background-color: #d2d2d2;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 2px;
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+.sddlArrowContainer:hover {
+    border: 2px #00BB22 solid;
+    box-sizing: border-box;
+}
+
+.sddlArrowContainer.down {
+    transform: rotate(-180deg);
+}
+
+.sddlArrow {
+    height: 10px;
+    width: 10px;
+    border: 1px black none;
+    border-top-style: solid;
+    border-left-style: solid;
+    transform: rotate(45deg);
+    margin-top: 3px;
+    box-sizing: border-box;
+}

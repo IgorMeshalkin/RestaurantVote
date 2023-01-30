@@ -12,6 +12,7 @@
     transition: 0.5s;
     pointer-events: none;
     z-index: 999999;
+    font-family: 'Signika Negative', sans-serif;
 }
 
 .background.active {

@@ -1,11 +1,11 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import cl from './UserInfoMenu.module.css'
-import {useContext} from "react";
 import {AuthContext} from "../../../context/context";
+import {useNavigate} from "react-router-dom";
 
 const UserInfoMenu = ({isOpen}) => {
     const {isAdmin, setCurrentUser} = useContext(AuthContext)
-
+    const navigate = useNavigate()
     const userInfoMenuRef = useRef()
 
     useEffect(() => {
@@ -15,6 +15,11 @@ const UserInfoMenu = ({isOpen}) => {
             userInfoMenuRef.current.setAttribute('style', 'top: -130px')
         }
     }, [isOpen])
+
+    function toMyRestaurants() {
+        navigate('/my_restaurants')
+        userInfoMenuRef.current.setAttribute('style', 'top: -130px')
+    }
 
     function logout() {
         setCurrentUser(null)
@@ -28,7 +33,7 @@ const UserInfoMenu = ({isOpen}) => {
                 <div className={cl.uimButton}>Администрирование</div>
             }
             <div className={cl.uimButton} onClick={() => console.log(isAdmin)}>Мой профиль</div>
-            <div className={cl.uimButton}>Мои рестораны</div>
+            <div className={cl.uimButton} onClick={toMyRestaurants}>Мои рестораны</div>
             <div className={cl.uimButton} onClick={logout}>Выход</div>
 
         </div>

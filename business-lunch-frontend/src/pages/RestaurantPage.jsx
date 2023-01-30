@@ -7,7 +7,7 @@ import RestaurantInfoBlock from "../components/RestaurantInfoBlock/RestaurantInf
 import '../App.css'
 import CommentsBlock from "../components/CommentsBlock/CommentsBlock";
 
-const Restaurant = () => {
+const RestaurantPage = () => {
     const params = useParams()
     const navigate = useNavigate();
 
@@ -50,4 +50,4 @@ const Restaurant = () => {
     );
 };
 
-export default Restaurant;
+export default RestaurantPage;

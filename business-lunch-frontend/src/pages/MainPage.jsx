@@ -5,9 +5,9 @@ import RestaurantList from "../components/RestaurantList/RestaurantList";
 import Header from "../components/Header/Header";
 import SortAndSearchPanel from "../components/SortAndSearchPanel/SortAndSearchPanel";
 import SpecialOffer from "../components/SpecialOffer/SpecialOffer";
-import restaurant from "./Restaurant";
+import restaurant from "./RestaurantPage";
 
-function Main() {
+function MainPage() {
     const [menu, setMenu] = useState(false)
     const [contentForMenu, setContentForMenu] = useState('')
 
@@ -51,4 +51,4 @@ function Main() {
         </div>);
 }
 
-export default Main;
+export default MainPage;

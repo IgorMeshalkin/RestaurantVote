@@ -1,0 +1,16 @@
+.plusButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    font-size: 34px;
+    background-color: #d2d2d2;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.plusButton:hover {
+    background-color: #b6b6b6;
+}

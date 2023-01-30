@@ -1,11 +1,13 @@
 import './App.css';
 import React, {useEffect, useState} from "react";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import Restaurant from "./pages/Restaurant";
-import Main from "./pages/Main"
+import RestaurantPage from "./pages/RestaurantPage";
+import MainPage from "./pages/MainPage"
 import Header from "./components/Header/Header";
 import {AuthContext} from "./context/context";
 import LoginPage from "./pages/LoginPage";
+import MyRestaurantsPage from "./pages/MyRestaurantsPage";
+import RestaurantFormPage from "./pages/RestaurantFormPage";
 
 function App() {
     const [isAuth, setIsAuth] = useState(false)
@@ -45,9 +47,11 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Header/>}>
-                        <Route index element={<Main/>}/>
+                        <Route index element={<MainPage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
-                        <Route path="/restaurant/:id" element={<Restaurant/>}/>
+                        <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
+                        <Route path="/my_restaurants" element={<MyRestaurantsPage/>}/>
+                        <Route path="/restaurant_form/:id" element={<RestaurantFormPage/>}/>
                         <Route
                             path="*"
                             element={<Navigate to="/" replace />}

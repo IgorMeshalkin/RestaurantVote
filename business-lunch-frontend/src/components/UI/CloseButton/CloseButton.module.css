@@ -11,6 +11,7 @@
 .background {
     height: 100%;
     width: 100%;
+    transition: 0.3s;
 }
 
 .right {
@@ -37,15 +38,14 @@
     transform: rotate(45deg);
 }
 
-.userInfoMenuButton:hover .background {
-    background-color: #dddddd;
-    opacity: 0.5;
+.main:hover .background {
+    background-color: #d2d2d2;
 }
 
-.userInfoMenuButton:active .right {
+.main:active .right {
     border-color: black;
 }
 
-.userInfoMenuButton:active .left {
+.main:active .left {
     border-color: black;
 }

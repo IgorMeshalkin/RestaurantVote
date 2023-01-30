@@ -3,6 +3,7 @@ import './SortAndSearchPanel.css'
 import SearchLine from "./SearchLine/SearchLine";
 import DropDownList from "../UI/DropDownList/DropDownList";
 import SelectCuisineLine from "./SelectСuisineLine/SelectСuisineLine";
+import {getCuisinesArray} from "../../utils/arrays";
 
 const SortAndSearchPanel = ({getValueForFilter, selectСuisine, selectValueForSort}) => {
     const [scroll, setScroll] = useState(0);
@@ -40,19 +41,7 @@ const SortAndSearchPanel = ({getValueForFilter, selectСuisine, selectValueForSo
         {id: 3, title: 'Сначала дорогие', value: 'firstExpensive'}
     ])
 
-    const [cuisine, setCuisine] = useState([
-        {id: 1, title: 'Любая', value: 'ALL'},
-        {id: 2, title: 'Американская', value: 'AMERICAN'},
-        {id: 3, title: 'Китайская', value: 'CHINESE'},
-        {id: 4, title: 'Французская', value: 'FRENCH'},
-        {id: 5, title: 'Индийская', value: 'INDIAN'},
-        {id: 6, title: 'Итальянская', value: 'ITALIAN'},
-        {id: 7, title: 'Японская', value: 'JAPANESE'},
-        {id: 8, title: 'Мексиканская', value: 'MEXICAN'},
-        {id: 9, title: 'Русская', value: 'RUSSIAN'},
-        {id: 10, title: 'Тайская', value: 'THAI'},
-        {id: 11, title: 'Турецкая', value: 'TURKISH'},
-    ])
+    const [cuisine, setCuisine] = useState(getCuisinesArray())
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);

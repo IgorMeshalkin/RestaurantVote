@@ -1,0 +1,22 @@
+.mealMain {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.mealNameContainer {
+    width: 70%;
+}
+
+.mealWeightContainer {
+    width: 20%;
+    margin: auto;
+}
+
+.closeButtonContainer {
+    width: 25px;
+    margin-right: 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}

@@ -9,6 +9,7 @@
     border-radius: 6px;
     min-width: 566px;
     text-align: left;
+    font-family: 'Signika Negative', sans-serif;
 }
 
 .logo {
@@ -73,7 +74,7 @@
     width: 25%;
 }
 
-.right div:nth-child(1) {
+.restItemPrice {
     display: flex;
     justify-content: right;
     margin-top: 5px;
@@ -82,10 +83,37 @@
     font-weight: bold;
 }
 
-.right div:nth-child(2) {
+.showMenuButtonContainer {
     position: absolute;
     bottom: 10px;
     right: 10px;
+}
+
+.updateAndDeleteButtonsContainer {
+    display: flex;
+    width: 50px;
+    height: 20px;
+    position: absolute;
+    bottom: 45px;
+    right: 10px;
+}
+
+@media (max-width: 1225px) {
+    .updateAndDeleteButtonsContainer {
+        bottom: 60px;
+    }
+}
+
+@media (max-width: 960px) {
+    .updateAndDeleteButtonsContainer {
+        bottom: 45px;
+    }
+}
+
+@media (max-width: 792px) {
+    .updateAndDeleteButtonsContainer {
+        bottom: 60px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -117,9 +145,15 @@
         height: 70px;
     }
 
-    .right div:nth-child(1) {
+    .restItemPrice {
         position: absolute;
         bottom: 10px;
         left: 35px;
+    }
+
+    .updateAndDeleteButtonsContainer {
+        bottom: 15px;
+        right: 140px;
+        width: 60px;
     }
 }
