@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import cl from './CommentsBlock.module.css'
 import RegularButton from "../UI/RegularButton/RegularButton";
 import BoldArrow from "../UI/BoldArrow/BoldArrow";
-import {useFetching} from "../../hooks/useFetching";
+import {useAPI} from "../../hooks/useAPI";
 import CommentAPI from "../../API/CommentAPI";
 import CommentItem from "./CommentItem/CommentItem";
 import {conversionStyleWithPxToNumber} from "../../utils/strings";
@@ -52,13 +52,13 @@ const CommentsBlock = ({restaurantId, width}) => {
         }
     }, [isOpen])
 
-    const [fetchFirstPage, isFirstPageLoading, firstPageLoadingError] = useFetching(async () => {
+    const [fetchFirstPage, isFirstPageLoading, firstPageLoadingError] = useAPI(async () => {
         const response = await CommentAPI.getAll(restaurantId, limit, page)
         setComments(response.data)
         setTotalComments(response.headers['x-total-count'])
     })
 
-    const [fetchNextPage, isNextPageLoading, nextPageLoadingError] = useFetching(async () => {
+    const [fetchNextPage, isNextPageLoading, nextPageLoadingError] = useAPI(async () => {
         const response = await CommentAPI.getAll(restaurantId, limit, page)
         setComments([...comments, ...response.data])
     })

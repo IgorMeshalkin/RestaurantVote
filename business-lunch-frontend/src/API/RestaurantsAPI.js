@@ -27,4 +27,22 @@ export default class RestaurantsAPI {
         });
         return response
     }
+
+    static async create(restaurant) {
+        const response = await axios.post(REST_URL, restaurant, {
+            auth: {
+                username: 'admin', password: 'admin'
+            },
+        });
+        return response
+    }
+
+    static async update(restaurant) {
+        const response = await axios.put(REST_URL, restaurant, {
+            auth: {
+                username: 'admin', password: 'admin'
+            },
+        });
+        return response
+    }
 }

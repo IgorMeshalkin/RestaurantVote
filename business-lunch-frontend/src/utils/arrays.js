@@ -1,3 +1,5 @@
+import {logDOM} from "@testing-library/react";
+
 export const checkForNameMatches = (checkedArray, validatingArray) => {
     const result = checkedArray.filter(item => !isContainedHere(item, validatingArray))
     return result
@@ -15,10 +17,11 @@ function isContainedHere(file, array) {
     return result;
 }
 
-export const formatURLLinksToFileObjects = (linksArray) => {
+//Форматирование объектов фото приходящих с REST API заключается в добавлении им поля 'name'
+export const formatBackendPhotosToFrontendPhotoObjects = (photosArray) => {
     let result = [];
-        linksArray.forEach(link => {
-        result = [...result, {name: link, url: link}]
+    photosArray.forEach(photo => {
+        result = [...result, {id: photo.id, name: photo.id + "_businessLunchApp", url: photo.url}]
     })
     return result;
 }
@@ -55,7 +58,7 @@ export const getCuisineByValue = (value) => {
     let result = getCuisinesArray()[1];
     if (value) {
         getCuisinesArray().forEach(cuisine => {
-            if(cuisine.value === value) {
+            if (cuisine.value === value) {
                 result = cuisine;
             }
         })

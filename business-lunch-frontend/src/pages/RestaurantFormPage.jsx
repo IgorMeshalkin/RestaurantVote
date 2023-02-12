@@ -2,7 +2,7 @@ import React from 'react';
 import RestaurantForm from "../components/RestaurantForm/RestaurantForm";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useFetching} from "../hooks/useFetching";
+import {useAPI} from "../hooks/useAPI";
 import RestaurantsAPI from "../API/RestaurantsAPI";
 import PizzaLoader from "../components/Loaders/PizzaLoader";
 
@@ -18,7 +18,7 @@ const RestaurantFormPage = () => {
         }
     }, [])
 
-    const [fetchRestaurant, isRestaurantLoading, restaurantLoadingError] = useFetching(async () => {
+    const [fetchRestaurant, isRestaurantLoading, restaurantLoadingError] = useAPI(async () => {
         const response = await RestaurantsAPI.getById(params.id)
         setRestaurant(response.data)
     })

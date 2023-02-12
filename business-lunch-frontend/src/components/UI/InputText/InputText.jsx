@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import cl from './InputText.module.css'
 
-const InputText = React.forwardRef(({placeholder, value, onChange12}, ref) => {
+const InputText = React.forwardRef(({placeholder, value, onChange}, ref) => {
     const[innerValue, setInnerValue] = useState(value)
 
     function changeValue(event) {
         setInnerValue(event)
-        onChange12()
+        {
+            onChange && onChange()
+        }
     }
 
     return (

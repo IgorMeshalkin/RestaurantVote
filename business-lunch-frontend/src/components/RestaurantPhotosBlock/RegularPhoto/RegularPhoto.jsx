@@ -15,7 +15,7 @@ const RegularPhoto = ({photo, setBigPhoto, replacePhotoForViewer}) => {
 
     return (
             <img
-                src={photo}
+                src={photo.url}
                 className={cl.regularPhoto}
                 alt='Фото не найдено'
                 ref={imageRef}

@@ -3,7 +3,7 @@ import './SpecialOffer.css'
 import Arrow from "../UI/Arrows/Arrow";
 import SpecialOfferLine from "./SpecialOfferLine/SpecialOfferLine";
 import {usePressingButton} from "../../hooks/usePressingButton";
-import {useFetching} from "../../hooks/useFetching";
+import {useAPI} from "../../hooks/useAPI";
 import SpecialOfferAPI from "../../API/SpecialOfferAPI";
 
 const SpecialOffer = ({trySpecialOffer}) => {
@@ -19,7 +19,7 @@ const SpecialOffer = ({trySpecialOffer}) => {
     const [lineLength, setLineLength] = useState(0)
     const [linePosition, setLinePosition] = useState(0)
 
-    const [fetchSpecialOffers, isLoading, error] = useFetching(async () => {
+    const [fetchSpecialOffers, isLoading, error] = useAPI(async () => {
         const response = await SpecialOfferAPI.getAll()
         setSpecialOffers(response.data)
     })

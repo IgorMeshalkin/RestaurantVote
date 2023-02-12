@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,28 +37,34 @@ public class Restaurant extends BaseEntity {
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Meal> menu;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Photo> photos;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Vote> votes;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @JsonIgnore
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference
+    @JsonIgnore
     private List<SpecialOffer> specialOffer;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
+    @JsonIgnore
     private User user;
 
     @Override

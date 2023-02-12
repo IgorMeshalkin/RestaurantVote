@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +18,6 @@ public class Photo extends BaseEntity{
     @ManyToOne()
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
+//    @JsonIgnore
     private Restaurant restaurant;
 }

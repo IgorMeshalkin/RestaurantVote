@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import RestaurantsAPI from "../../API/RestaurantsAPI";
 import './RestaurantList.css'
-import {useFetching} from '../../hooks/useFetching'
+import {useAPI} from '../../hooks/useAPI'
 import {getPagesCount} from "../../utils/pages";
 import PizzaLoader from "../Loaders/PizzaLoader";
 import RestaurantItem from "./RestaurantItem/RestaurantItem";
@@ -57,7 +57,7 @@ const RestaurantList = (props) => {
         }
     }
 
-    const [fetchFirstPage, isFirstPageLoading, firstPageLoadingError] = useFetching(async () => {
+    const [fetchFirstPage, isFirstPageLoading, firstPageLoadingError] = useAPI(async () => {
         const response = await RestaurantsAPI.getAll(limit, 0, props.valueForSort, props.searchQuery, props.selectedCuisine)
         setAllRestaurants(response.data)
         const totalCount = response.headers['x-total-count']
@@ -65,7 +65,7 @@ const RestaurantList = (props) => {
         setTotalPages(getPagesCount(totalCount, limit))
     })
 
-    const [fetchNextPage, isNextPageLoading, nextPageLoadingError] = useFetching(async () => {
+    const [fetchNextPage, isNextPageLoading, nextPageLoadingError] = useAPI(async () => {
         const response = await RestaurantsAPI.getAll(limit, page - 1, props.valueForSort, props.searchQuery, props.selectedCuisine)
         setAllRestaurants([...allRestaurants, ...response.data])
     })

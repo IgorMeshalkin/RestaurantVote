@@ -2,7 +2,6 @@ package com.igormeshalkin.restaurant_vote.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.igormeshalkin.restaurant_vote.model.Comment;
 import com.igormeshalkin.restaurant_vote.model.Photo;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import lombok.Data;
@@ -13,8 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantFullDto extends RestaurantDto {
-    private List<String> photos;
-//    private List<CommentDto> comments;
+    private List<PhotoDTO> photos;
 
     public static RestaurantFullDto fromRestaurant(Restaurant restaurant) {
         RestaurantFullDto restaurantFullDto = new RestaurantFullDto();
@@ -29,12 +27,9 @@ public class RestaurantFullDto extends RestaurantDto {
         restaurantFullDto.setMenu(restaurant.getMenu().stream()
                 .map(MealDto::fromMeal)
                 .collect(Collectors.toList()));
-        restaurantFullDto.setPhotos(restaurant.getPhotos().stream()
-                .map(Photo::getUrl)
+        restaurantFullDto.setPhotos(restaurant.getPhotos()
+                .stream().map(PhotoDTO::fromPhoto)
                 .collect(Collectors.toList()));
-//        restaurantFullDto.setComments(restaurant.getComments().stream()
-//                .map(CommentDto::fromComment)
-//                .collect(Collectors.toList()));
         return restaurantFullDto;
     }
 }

@@ -22,16 +22,24 @@ const RestaurantPhotosBlock = (props) => {
 
     return (
         <div className={cl.main} ref={mainRef}>
-            <img src={bigPhoto} className={cl.bigPhoto} alt='Фото не найдено'
-                 onClick={() => replacePhotoForViewer(bigPhoto)}/>
+            {
+                bigPhoto &&
+                <img
+                    src={bigPhoto.url}
+                    className={cl.bigPhoto} alt='Фото не найдено'
+                    onClick={() => replacePhotoForViewer(bigPhoto)}
+                />
+            }
+
             {props.photos.map(photo =>
                 <RegularPhoto
-                    key={photo}
+                    key={photo.id}
                     photo={photo}
                     setBigPhoto={setBigPhoto}
                     replacePhotoForViewer={replacePhotoForViewer}
                 />
             )}
+
             <PhotoViewer
                 active={photoViewerActive}
                 setActive={setPhotoViewerActive}

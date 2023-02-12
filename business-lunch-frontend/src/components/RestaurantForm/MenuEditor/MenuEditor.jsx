@@ -4,14 +4,7 @@ import Meal from "./Meal/Meal";
 import PlusButton from "../../UI/PlusButton/PlusButton";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 
-const MenuEditor = ({menu, setMenu, replaceMenuSize, plusRef}) => {
-
-    // function addMealToMenu() {
-    //     replaceMenuSize(1)
-    //     const newMenu = [...menu];
-    //     newMenu.push({id: Date.now(), name: '', weight: ''})
-    //     setMenu(newMenu)
-    // }
+const MenuEditor = ({menu, setMenu, replaceMenuSize}) => {
 
     function deleteMealFromMenu(meal) {
         replaceMenuSize(-1)
@@ -37,9 +30,6 @@ const MenuEditor = ({menu, setMenu, replaceMenuSize, plusRef}) => {
                     )
                 }
             </TransitionGroup>
-            {/*<div className="mePlusContainer" ref={plusRef}>*/}
-            {/*    <PlusButton onClick={addMealToMenu}/>*/}
-            {/*</div>*/}
         </div>
     );
 };

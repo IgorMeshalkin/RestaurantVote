@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/meals")
+@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
 public class MealRestController {
     private final MealService mealService;
     private final RestaurantService restaurantService;
@@ -43,23 +44,23 @@ public class MealRestController {
     @PostMapping("/{restaurant_id}")
     @PreAuthorize("hasAuthority('everything:change entries')")
     @ApiOperation("Create new meal and add it to the restaurant menu by its id")
-    public ResponseEntity<Meal> createAndAddToRestaurantMenu(@RequestBody Meal meal,
+    public ResponseEntity<MealDto> createAndAddToRestaurantMenu(@RequestBody Meal meal,
                                                              @PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
         if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             Meal result = mealService.create(meal, restaurant);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(MealDto.fromMeal(result), HttpStatus.OK);
         }
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('everything:change entries')")
     @ApiOperation("Update meal")
-    public ResponseEntity<Meal> update(@RequestBody Meal meal) {
+    public ResponseEntity<MealDto> update(@RequestBody Meal meal) {
         Meal result = mealService.update(meal);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(MealDto.fromMeal(result), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

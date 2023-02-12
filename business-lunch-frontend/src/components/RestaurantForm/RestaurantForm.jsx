@@ -8,25 +8,37 @@ import MenuEditor from "./MenuEditor/MenuEditor";
 import ImageInput from "../ImageInput/ImageInput";
 import {combineAddress, combineLunchTime, splitAddress, splitLunchTime} from "../../utils/strings";
 import PlusButton from "../UI/PlusButton/PlusButton";
+import {saveMenu, savePhotos, saveRestaurantFields, validateRestaurantForm} from "../../utils/restaurantSave";
+import LineLoader from "../Loaders/LineLoader";
 
 const RestaurantForm = ({restaurant, isUpdate}) => {
+
     const menuEditorRef = useRef()
-    const menuPlusRef = useRef()
     const restaurantNameRef = useRef()
     const priceRef = useRef()
     const streetNameRef = useRef()
     const houseNumberRef = useRef()
+    const phoneNumberRef = useRef()
+    const validationResultRef = useRef()
+    const firstUpdate = useRef(true);
 
+    const [isFormLoading, setIsFormLoading] = useState(false)
     const [selectedCuisine, setSelectedCuisine] = useState(getCuisineByValue(restaurant.cuisine))
     const [cuisinesList, setCuisinesList] = useState(getCuisinesArray().splice(1, 10))
-    const [menu, setMenu] = useState(restaurant ? restaurant.menu : [{
+    const [menu, setMenu] = useState(restaurant.menu ? restaurant.menu : [{
         id: Date.now(),
         name: '',
         weight: ''
     }])
-    const [startLunchTime, setStartLunchTime] = useState(isUpdate ? splitLunchTime(restaurant.lunchTime)[0] : undefined)
-    const [finishLunchTime, setFinishLunchTime] = useState(isUpdate ? splitLunchTime(restaurant.lunchTime)[1] : undefined)
+    const [startLunchTime, setStartLunchTime] = useState(isUpdate ? splitLunchTime(restaurant.lunchTime)[0] : "12:00")
+    const [finishLunchTime, setFinishLunchTime] = useState(isUpdate ? splitLunchTime(restaurant.lunchTime)[1] : "14:00")
 
+    const [imageFiles, setImageFiles] = useState([])
+    const [imagePreview, setImagePreview] = useState([])
+
+    const [validationResult, setValidationResult] = useState([])
+
+    //Логика выбора типа кухни из выпадающего списка
     useEffect(() => {
         setCuisinesList(sortCuisineList([...cuisinesList], selectedCuisine))
     }, [selectedCuisine])
@@ -38,6 +50,7 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
         menuEditorRef.current.setAttribute("style", "height: " + menuSize + "px")
     }, [])
 
+    //Меняет высоту окна меню при добавлении-удалении пункта меню.
     function replaceMenuSize(value) {
         const menuSize = menuEditorRef.current.getBoundingClientRect().height
 
@@ -55,13 +68,35 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
         setMenu(newMenu)
     }
 
-    function submit() {
-        console.log(restaurantNameRef.current.value)
-        console.log(selectedCuisine.value)
-        console.log(priceRef.current.value)
-        console.log(combineAddress(streetNameRef.current.value, houseNumberRef.current.value))
-        console.log(combineLunchTime(startLunchTime, finishLunchTime))
-        console.log(menu)
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+        } else {
+            validationResultRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+        }
+    }, [validationResult])
+
+    async function saveRestaurantForm() {
+        saveRestaurantFields(restaurant
+            , restaurantNameRef.current.value
+            , selectedCuisine.value
+            , priceRef.current.value
+            , combineAddress(streetNameRef.current.value, houseNumberRef.current.value)
+            , phoneNumberRef.current.value
+            , combineLunchTime(startLunchTime, finishLunchTime))
+        await saveMenu(restaurant, menu)
+        await savePhotos(restaurant, imageFiles, imagePreview)
+    }
+
+    async function submit() {
+        const result = validateRestaurantForm(restaurantNameRef.current.value, priceRef.current.value, streetNameRef.current.value, houseNumberRef.current.value, phoneNumberRef.current.value, startLunchTime, finishLunchTime, menu)
+        if (result.length > 0) {
+            setValidationResult(result)
+        } else {
+            setIsFormLoading(true)
+            await saveRestaurantForm()
+            setIsFormLoading(false)
+        }
     }
 
     return (
@@ -69,6 +104,7 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
             <div className="rfGeneralTitle" onClick={() => console.log(restaurant)}>
                 {isUpdate ? 'Изменить ресторан' : 'Создать ресторан'}
             </div>
+
             <div className="rfManyInputContainer">
                 <div className="rfInputContainer perс60">
                     <div className="rfInputTitle">Название</div>
@@ -100,7 +136,8 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
             <div className="rfManyInputContainer">
                 <div className="rfInputContainer">
                     <div className="rfInputTitle">Телефон</div>
-                    <InputText value={isUpdate ? restaurant.phoneNumber : "+7 "}/>
+                    <InputText value={isUpdate ? restaurant.phoneNumber : "+7 "}
+                               ref={phoneNumberRef}/>
                 </div>
                 <div className="rfInputContainer perс70">
                     <div className="rfInputTitle">Начало обеда</div>
@@ -124,7 +161,6 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
                         menu={menu}
                         setMenu={setMenu}
                         replaceMenuSize={replaceMenuSize}
-                        plusRef={menuPlusRef}
                     />
                 </div>
                 <div className="rfPlusButtonContainer">
@@ -135,11 +171,36 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
             <div className="rfManyInputContainer">
                 <div className="rfInputContainer">
                     <div className="rfInputTitle">Фотографии:</div>
-                    <ImageInput photo={restaurant.photos}/>
+                    <ImageInput
+                        photo={restaurant.photos}
+                        imagePreview={imagePreview}
+                        setImagePreview={setImagePreview}
+                        images={imageFiles}
+                        setImages={setImageFiles}
+                    />
                 </div>
             </div>
 
+            {/*<div className="rfLoaderContainer">*/}
+            {/*    {*/}
+            {/*        isFormLoading &&*/}
+            {/*        <LineLoader/>*/}
+            {/*    }*/}
+            {/*</div>*/}
+
             <div className="rfSubmitButton" onClick={submit}>Сохранить</div>
+
+            <div className="rfInputContainer" ref={validationResultRef}>
+                {
+                    validationResult.map(error =>
+                        <span
+                            key={error}
+                            className="rfValidateResult">
+                            {error}
+                        </span>
+                    )
+                }
+            </div>
         </div>
     );
 };

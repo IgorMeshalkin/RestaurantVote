@@ -19,12 +19,16 @@ const PhotoViewer = ({active, setActive, photos, indexOfCurrentPhoto, setIndexOf
 
     return (
         <div className={active ? 'photoViewerBackground active' : 'photoViewerBackground'}>
-            <img
-                src={photos[indexOfCurrentPhoto]}
-                className={active ? 'photoViewerImage active' : 'photoViewerImage'}
-                onClick={() => setActive(false)}
-            />
-            <div className="photoViewerInfo">
+            {
+                photos[indexOfCurrentPhoto] &&
+                <img
+                    src={photos[indexOfCurrentPhoto].url}
+                    className={active ? 'photoViewerImage active' : 'photoViewerImage'}
+                    onClick={() => setActive(false)}
+                />
+            }
+
+            <div className="photoViewerInfo" onClick={() => console.log(indexOfCurrentPhoto)}>
                 {indexOfCurrentPhoto + 1} из {photos.length}
             </div>
             <div className="photoViewerCloseButtonContainer">

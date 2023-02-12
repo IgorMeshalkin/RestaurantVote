@@ -20,10 +20,10 @@ const Meal = ({meal, menu, setMenu, deleteFromMenu}) => {
     return (
         <div className="mealMain">
             <div className="mealNameContainer">
-                <InputText value={meal.name} placeholder="Название" ref={nameRef} onChange12={updateMealInMenu}/>
+                <InputText value={meal.name} placeholder="Название" ref={nameRef} onChange={updateMealInMenu}/>
             </div>
             <div className="mealWeightContainer">
-                <InputText value={meal.weight} placeholder="Вес(гр.)" ref={weightRef} onChange12={updateMealInMenu}/>
+                <InputText value={meal.weight} placeholder="Вес(гр.)" ref={weightRef} onChange={updateMealInMenu}/>
             </div>
             <div className="closeButtonContainer">
                 <CloseButton onClick={deleteCurrentMeal}/>

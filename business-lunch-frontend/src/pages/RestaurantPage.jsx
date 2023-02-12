@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import RestaurantsAPI from "../API/RestaurantsAPI";
-import {useFetching} from "../hooks/useFetching";
+import {useAPI} from "../hooks/useAPI";
 import RestaurantPhotosBlock from "../components/RestaurantPhotosBlock/RestaurantPhotosBlock";
 import RestaurantInfoBlock from "../components/RestaurantInfoBlock/RestaurantInfoBlock";
 import '../App.css'
@@ -19,7 +19,7 @@ const RestaurantPage = () => {
         fetchFirstPage()
     }, [])
 
-    const [fetchFirstPage, isPageLoading, firstPageLoadingError] = useFetching(async () => {
+    const [fetchFirstPage, isPageLoading, firstPageLoadingError] = useAPI(async () => {
         const response = await RestaurantsAPI.getById(params.id)
         setRestaurant(response.data)
     })
