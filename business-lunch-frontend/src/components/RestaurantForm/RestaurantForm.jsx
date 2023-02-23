@@ -10,8 +10,10 @@ import {combineAddress, combineLunchTime, splitAddress, splitLunchTime} from "..
 import PlusButton from "../UI/PlusButton/PlusButton";
 import {saveMenu, savePhotos, saveRestaurantFields, validateRestaurantForm} from "../../utils/restaurantSave";
 import LineLoader from "../Loaders/LineLoader";
+import {useNavigate} from "react-router-dom";
 
 const RestaurantForm = ({restaurant, isUpdate}) => {
+    const navigate = useNavigate();
 
     const menuEditorRef = useRef()
     const restaurantNameRef = useRef()
@@ -22,7 +24,6 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
     const validationResultRef = useRef()
     const firstUpdate = useRef(true);
 
-    const [isFormLoading, setIsFormLoading] = useState(false)
     const [selectedCuisine, setSelectedCuisine] = useState(getCuisineByValue(restaurant.cuisine))
     const [cuisinesList, setCuisinesList] = useState(getCuisinesArray().splice(1, 10))
     const [menu, setMenu] = useState(restaurant.menu ? restaurant.menu : [{
@@ -37,6 +38,8 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
     const [imagePreview, setImagePreview] = useState([])
 
     const [validationResult, setValidationResult] = useState([])
+
+    const [isSavingForm, setIsSavingForm] = useState(false)
 
     //Логика выбора типа кухни из выпадающего списка
     useEffect(() => {
@@ -76,32 +79,45 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
         }
     }, [validationResult])
 
-    async function saveRestaurantForm() {
-        saveRestaurantFields(restaurant
+    async function saveForm() {
+        setIsSavingForm(true)
+        let result = [];
+        const fieldsResp = await saveRestaurantFields(restaurant
             , restaurantNameRef.current.value
             , selectedCuisine.value
             , priceRef.current.value
             , combineAddress(streetNameRef.current.value, houseNumberRef.current.value)
             , phoneNumberRef.current.value
             , combineLunchTime(startLunchTime, finishLunchTime))
-        await saveMenu(restaurant, menu)
-        await savePhotos(restaurant, imageFiles, imagePreview)
+        result.push(fieldsResp)
+
+        const menuResp = await saveMenu(restaurant, menu)
+        result.push(menuResp)
+
+        const photoResp = await savePhotos(restaurant, imageFiles, imagePreview)
+        result.push(photoResp)
+
+        return result;
     }
 
-    async function submit() {
+    function submit() {
         const result = validateRestaurantForm(restaurantNameRef.current.value, priceRef.current.value, streetNameRef.current.value, houseNumberRef.current.value, phoneNumberRef.current.value, startLunchTime, finishLunchTime, menu)
         if (result.length > 0) {
             setValidationResult(result)
         } else {
-            setIsFormLoading(true)
-            await saveRestaurantForm()
-            setIsFormLoading(false)
+            saveForm().then(() => {
+                setIsSavingForm(false)
+                navigate(-1)
+            }).catch(() => {
+                setIsSavingForm(false)
+                setValidationResult([...validationResult, 'Не удалось сохранить. Попробуйте ещё раз.'])
+            })
         }
     }
 
     return (
         <div className="rfMain">
-            <div className="rfGeneralTitle" onClick={() => console.log(restaurant)}>
+            <div className="rfGeneralTitle" onClick={() => setIsSavingForm(!isSavingForm)}>
                 {isUpdate ? 'Изменить ресторан' : 'Создать ресторан'}
             </div>
 
@@ -181,12 +197,12 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
                 </div>
             </div>
 
-            {/*<div className="rfLoaderContainer">*/}
-            {/*    {*/}
-            {/*        isFormLoading &&*/}
-            {/*        <LineLoader/>*/}
-            {/*    }*/}
-            {/*</div>*/}
+            <div className="rfLoaderContainer">
+                {
+                    isSavingForm &&
+                    <LineLoader/>
+                }
+            </div>
 
             <div className="rfSubmitButton" onClick={submit}>Сохранить</div>
 

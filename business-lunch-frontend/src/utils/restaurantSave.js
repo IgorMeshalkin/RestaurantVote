@@ -78,16 +78,17 @@ const checkMenu = (menu) => {
     return result;
 }
 
-export const saveRestaurantFields = (restaurant, name, cuisine, price, address, phoneNumber, lunchTime) => {
+export const saveRestaurantFields = async (restaurant, name, cuisine, price, address, phoneNumber, lunchTime) => {
+    let response;
     if (!restaurant.id) {
-        RestaurantsAPI.create({
+        response = await RestaurantsAPI.create({
             name: name,
             address: address,
             phoneNumber: phoneNumber,
             lunchTime: lunchTime,
             cuisine: cuisine,
             price: price
-        }).then(r => console.log(r))
+        })
     } else {
         if (restaurant.name !== name
             || restaurant.cuisine !== cuisine
@@ -95,7 +96,7 @@ export const saveRestaurantFields = (restaurant, name, cuisine, price, address, 
             || restaurant.address !== address
             || restaurant.phoneNumber !== phoneNumber
             || restaurant.lunchTime !== lunchTime) {
-            RestaurantsAPI.update({
+            response = await RestaurantsAPI.update({
                 ...restaurant,
                 name: name,
                 cuisine: cuisine,
@@ -103,27 +104,31 @@ export const saveRestaurantFields = (restaurant, name, cuisine, price, address, 
                 address: address,
                 phoneNumber: phoneNumber,
                 lunchTime: lunchTime
-            }).then(r => console.log(r))
+            })
         }
     }
+    return response;
 }
 
 export const saveMenu = async (restaurant, fromFormMenu) => {
+    let result = [];
     for (const fromFormMeal of fromFormMenu) {
         let isNew = true;
-        restaurant.menu.forEach(originalMeal => {
+        for (const originalMeal of restaurant.menu) {
             if (originalMeal.id === fromFormMeal.id) {
                 isNew = false;
                 if (originalMeal.name !== fromFormMeal.name || originalMeal.weight !== fromFormMeal.weight) {
-                    MealAPI.update(fromFormMeal).then(resp => console.log(resp))
+                    const response = await MealAPI.update(fromFormMeal)
+                    result.push(response)
                 }
             }
-        })
+        }
         if (isNew) {
-            await MealAPI.create(fromFormMeal, restaurant.id)
+            const response = await MealAPI.create(fromFormMeal, restaurant.id)
+            result.push(response)
         }
     }
-    restaurant.menu.forEach(meal => {
+    for (const meal of restaurant.menu) {
         let isDeleted = true;
         fromFormMenu.forEach(fromFormMealInner => {
             if (meal.id === fromFormMealInner.id) {
@@ -131,21 +136,26 @@ export const saveMenu = async (restaurant, fromFormMenu) => {
             }
         })
         if (isDeleted) {
-            MealAPI.delete(meal.id).then(resp => console.log(resp))
+            const response = await MealAPI.delete(meal.id)
+            result.push(response)
         }
-    })
+    }
+    return result;
 }
 
 export const savePhotos = async (restaurant, newPhotoFiles, previewPhotos) => {
+    let result = [];
+
     const formData = new FormData();
     for (const img of newPhotoFiles) {
         formData.set("image", img)
         PhotoAPI.getURL(formData).then(async resp => {
-            await PhotoAPI.create({url: resp}, restaurant.id)
+            const response = await PhotoAPI.create({url: resp}, restaurant.id)
+            result.push(response)
         })
     }
 
-    restaurant.photos.forEach(originalPhoto => {
+    for (const originalPhoto of restaurant.photos) {
         let isDeleted = true;
         previewPhotos.forEach(previewPhoto => {
             if (previewPhoto.id === originalPhoto.id) {
@@ -153,7 +163,10 @@ export const savePhotos = async (restaurant, newPhotoFiles, previewPhotos) => {
             }
         })
         if (isDeleted) {
-            PhotoAPI.delete(originalPhoto.id)
+            const response = await PhotoAPI.delete(originalPhoto.id)
+            result.push(response)
         }
-    })
+    }
+
+    return result;
 }
