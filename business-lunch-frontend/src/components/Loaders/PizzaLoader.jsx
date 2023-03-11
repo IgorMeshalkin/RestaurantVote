@@ -88,7 +88,7 @@ const PizzaLoader = () => {
     }
 
     return (
-        <div>
+        <div className="pizzaContainer">
             <PizzaImg0/>
             <PizzaImg1/>
             <PizzaImg2/>

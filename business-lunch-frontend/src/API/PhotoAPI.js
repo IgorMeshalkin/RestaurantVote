@@ -14,19 +14,19 @@ export default class PhotoAPI {
         return response.data
     }
 
-    static async create(photo, restaurantId) {
+    static async create(photo, restaurantId, username, password) {
         const response = await axios.post(REST_URL + "/" + restaurantId, photo, {
             auth: {
-                username: 'admin', password: 'admin'
+                username: username, password: password
             },
         });
         return response
     }
 
-    static async delete(id) {
+    static async delete(id, username, password) {
         const response = await axios.delete(REST_URL + "/" + id, {
             auth: {
-                username: 'admin', password: 'admin'
+                username: username, password: password
             },
         });
         return response

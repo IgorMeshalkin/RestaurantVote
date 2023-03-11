@@ -4,6 +4,7 @@
     margin-top: 160px;
     min-width: 566px;
     text-align: center;
+    animation: smoothAppearance 0.3s forwards;
 }
 
 .centerBlock {

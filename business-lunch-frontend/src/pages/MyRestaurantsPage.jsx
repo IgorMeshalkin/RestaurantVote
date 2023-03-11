@@ -3,7 +3,7 @@ import MyRestaurants from "../components/MyRestaurants/MyRestaurants";
 
 const MyRestaurantsPage = () => {
     return (
-        <div>
+        <div className="App">
             <MyRestaurants/>
         </div>
     );

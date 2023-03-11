@@ -1,9 +1,7 @@
 package com.igormeshalkin.restaurant_vote.rest;
 
 
-import com.igormeshalkin.restaurant_vote.dto.MealDto;
 import com.igormeshalkin.restaurant_vote.dto.PhotoDTO;
-import com.igormeshalkin.restaurant_vote.model.Meal;
 import com.igormeshalkin.restaurant_vote.model.Photo;
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.service.PhotoService;
@@ -27,10 +25,10 @@ public class PhotoRestController {
     }
 
     @PostMapping("/{restaurant_id}")
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Create new photo")
-    public ResponseEntity<PhotoDTO> createAndAddToRestaurantMenu(@RequestBody Photo photo,
-                                                                 @PathVariable Long restaurant_id) {
+    public ResponseEntity<PhotoDTO> create(@RequestBody Photo photo,
+                                           @PathVariable Long restaurant_id) {
         Restaurant restaurant = restaurantService.findById(restaurant_id);
         if (restaurant == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,7 +39,7 @@ public class PhotoRestController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Delete photo")
     public void delete(@PathVariable Long id) {
         photoService.delete(id);

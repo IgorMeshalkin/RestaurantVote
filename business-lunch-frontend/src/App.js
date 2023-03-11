@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useEffect, useState} from "react";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useLocation} from "react-router-dom";
 import RestaurantPage from "./pages/RestaurantPage";
 import MainPage from "./pages/MainPage"
 import Header from "./components/Header/Header";
@@ -15,7 +15,7 @@ function App() {
     const [currentUser, setCurrentUser] = useState(null)
 
     useEffect(() => {
-        if(localStorage.getItem('currentUser') !== null) {
+        if (localStorage.getItem('currentUser') !== null) {
             const userFromLocalStorage = JSON.parse(localStorage.getItem('currentUser'))
             setCurrentUser(userFromLocalStorage)
             setIsAuth(true)
@@ -44,21 +44,19 @@ function App() {
             currentUser,
             setCurrentUser
         }}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Header/>}>
-                        <Route index element={<MainPage/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                        <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
-                        <Route path="/my_restaurants" element={<MyRestaurantsPage/>}/>
-                        <Route path="/restaurant_form/:id" element={<RestaurantFormPage/>}/>
-                        <Route
-                            path="*"
-                            element={<Navigate to="/" replace />}
-                        />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Header/>}>
+                    <Route index element={<MainPage/>}/>
+                    <Route path="/login" element={<LoginPage/>}/>
+                    <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
+                    <Route path="/my_restaurants" element={<MyRestaurantsPage/>}/>
+                    <Route path="/restaurant_form/:id" element={<RestaurantFormPage/>}/>
+                    <Route
+                        path="*"
+                        element={<Navigate to="/" replace/>}
+                    />
+                </Route>
+            </Routes>
         </AuthContext.Provider>
     );
 }

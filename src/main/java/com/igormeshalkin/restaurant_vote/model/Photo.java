@@ -18,6 +18,6 @@ public class Photo extends BaseEntity{
     @ManyToOne()
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
-//    @JsonIgnore
+    @JsonIgnore
     private Restaurant restaurant;
 }

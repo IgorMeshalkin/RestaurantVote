@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './RestaurantForm.css'
 import InputText from "../UI/InputText/InputText";
 import InputTime from "../UI/InputTime/InputTime";
@@ -11,9 +11,11 @@ import PlusButton from "../UI/PlusButton/PlusButton";
 import {saveMenu, savePhotos, saveRestaurantFields, validateRestaurantForm} from "../../utils/restaurantSave";
 import LineLoader from "../Loaders/LineLoader";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context/context";
 
 const RestaurantForm = ({restaurant, isUpdate}) => {
     const navigate = useNavigate();
+    const {currentUser} = useContext(AuthContext)
 
     const menuEditorRef = useRef()
     const restaurantNameRef = useRef()
@@ -82,19 +84,20 @@ const RestaurantForm = ({restaurant, isUpdate}) => {
     async function saveForm() {
         setIsSavingForm(true)
         let result = [];
-        const fieldsResp = await saveRestaurantFields(restaurant
+        const restaurantAfterSave = await saveRestaurantFields(restaurant
             , restaurantNameRef.current.value
             , selectedCuisine.value
             , priceRef.current.value
             , combineAddress(streetNameRef.current.value, houseNumberRef.current.value)
             , phoneNumberRef.current.value
-            , combineLunchTime(startLunchTime, finishLunchTime))
-        result.push(fieldsResp)
+            , combineLunchTime(startLunchTime, finishLunchTime)
+            , currentUser)
+        result.push(restaurantAfterSave)
 
-        const menuResp = await saveMenu(restaurant, menu)
+        const menuResp = await saveMenu(restaurantAfterSave.data, menu, currentUser)
         result.push(menuResp)
 
-        const photoResp = await savePhotos(restaurant, imageFiles, imagePreview)
+        const photoResp = await savePhotos(restaurantAfterSave.data, imageFiles, imagePreview, currentUser)
         result.push(photoResp)
 
         return result;

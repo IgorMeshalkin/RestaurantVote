@@ -42,7 +42,7 @@ public class MealRestController {
     }
 
     @PostMapping("/{restaurant_id}")
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Create new meal and add it to the restaurant menu by its id")
     public ResponseEntity<MealDto> createAndAddToRestaurantMenu(@RequestBody Meal meal,
                                                              @PathVariable Long restaurant_id) {
@@ -56,7 +56,7 @@ public class MealRestController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Update meal")
     public ResponseEntity<MealDto> update(@RequestBody Meal meal) {
         Meal result = mealService.update(meal);
@@ -64,7 +64,7 @@ public class MealRestController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Delete meal")
     public void delete(@PathVariable Long id) {
         mealService.delete(id);

@@ -8,7 +8,7 @@ import DeleteButton from "../../UI/DeleteButton/DeleteButton";
 import {AuthContext} from "../../../context/context";
 import {isOwnedByCurrentUser} from "../../../utils/restaurantsOwners";
 
-const RestaurantItem = ({restaurant, showMenu}) => {
+const RestaurantItem = ({restaurant, showMenu, onDeleteButtonClick}) => {
     const {currentUser, isAdmin} = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -52,7 +52,9 @@ const RestaurantItem = ({restaurant, showMenu}) => {
                         <UpdateButton
                             onClick={() => navigate('/restaurant_form/' + restaurant.id)}
                         />
-                        <DeleteButton/>
+                        <DeleteButton
+                            onClick={onDeleteButtonClick}
+                        />
                     </div>
                 }
             </div>

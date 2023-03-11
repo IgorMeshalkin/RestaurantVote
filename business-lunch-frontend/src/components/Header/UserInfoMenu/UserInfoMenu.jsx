@@ -9,6 +9,10 @@ const UserInfoMenu = ({isOpen}) => {
     const userInfoMenuRef = useRef()
 
     useEffect(() => {
+        userInfoMenuRef.current.setAttribute('style', 'top: 52px')
+    }, [])
+
+    useEffect(() => {
         if (isOpen) {
             userInfoMenuRef.current.setAttribute('style', 'top: 52px')
         } else {

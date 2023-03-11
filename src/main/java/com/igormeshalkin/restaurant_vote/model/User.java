@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     private boolean active;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+//    @JsonManagedReference
     @JsonIgnore
     private List<Restaurant> restaurants;
 

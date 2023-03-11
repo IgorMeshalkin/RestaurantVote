@@ -78,7 +78,7 @@ const checkMenu = (menu) => {
     return result;
 }
 
-export const saveRestaurantFields = async (restaurant, name, cuisine, price, address, phoneNumber, lunchTime) => {
+export const saveRestaurantFields = async (restaurant, name, cuisine, price, address, phoneNumber, lunchTime, currentUser) => {
     let response;
     if (!restaurant.id) {
         response = await RestaurantsAPI.create({
@@ -88,7 +88,7 @@ export const saveRestaurantFields = async (restaurant, name, cuisine, price, add
             lunchTime: lunchTime,
             cuisine: cuisine,
             price: price
-        })
+        }, currentUser.username, currentUser.password)
     } else {
         if (restaurant.name !== name
             || restaurant.cuisine !== cuisine
@@ -104,67 +104,73 @@ export const saveRestaurantFields = async (restaurant, name, cuisine, price, add
                 address: address,
                 phoneNumber: phoneNumber,
                 lunchTime: lunchTime
-            })
+            }, currentUser.username, currentUser.password)
         }
     }
     return response;
 }
 
-export const saveMenu = async (restaurant, fromFormMenu) => {
+export const saveMenu = async (restaurant, fromFormMenu, currentUser) => {
     let result = [];
     for (const fromFormMeal of fromFormMenu) {
         let isNew = true;
-        for (const originalMeal of restaurant.menu) {
-            if (originalMeal.id === fromFormMeal.id) {
-                isNew = false;
-                if (originalMeal.name !== fromFormMeal.name || originalMeal.weight !== fromFormMeal.weight) {
-                    const response = await MealAPI.update(fromFormMeal)
-                    result.push(response)
+        if (restaurant.menu) {
+            for (const originalMeal of restaurant.menu) {
+                if (originalMeal.id === fromFormMeal.id) {
+                    isNew = false;
+                    if (originalMeal.name !== fromFormMeal.name || originalMeal.weight !== fromFormMeal.weight) {
+                        const response = await MealAPI.update(fromFormMeal, currentUser.username, currentUser.password)
+                        result.push(response)
+                    }
                 }
             }
         }
         if (isNew) {
-            const response = await MealAPI.create(fromFormMeal, restaurant.id)
+            const response = await MealAPI.create(fromFormMeal, restaurant.id, currentUser.username, currentUser.password)
             result.push(response)
         }
     }
-    for (const meal of restaurant.menu) {
-        let isDeleted = true;
-        fromFormMenu.forEach(fromFormMealInner => {
-            if (meal.id === fromFormMealInner.id) {
-                isDeleted = false;
+    if (restaurant.menu) {
+        for (const meal of restaurant.menu) {
+            let isDeleted = true;
+            fromFormMenu.forEach(fromFormMealInner => {
+                if (meal.id === fromFormMealInner.id) {
+                    isDeleted = false;
+                }
+            })
+            if (isDeleted) {
+                const response = await MealAPI.delete(meal.id, currentUser.username, currentUser.password)
+                result.push(response)
             }
-        })
-        if (isDeleted) {
-            const response = await MealAPI.delete(meal.id)
-            result.push(response)
         }
     }
     return result;
 }
 
-export const savePhotos = async (restaurant, newPhotoFiles, previewPhotos) => {
+export const savePhotos = async (restaurant, newPhotoFiles, previewPhotos, currentUser) => {
     let result = [];
 
     const formData = new FormData();
     for (const img of newPhotoFiles) {
         formData.set("image", img)
         PhotoAPI.getURL(formData).then(async resp => {
-            const response = await PhotoAPI.create({url: resp}, restaurant.id)
+            const response = await PhotoAPI.create({url: resp}, restaurant.id, currentUser.username, currentUser.password)
             result.push(response)
         })
     }
 
-    for (const originalPhoto of restaurant.photos) {
-        let isDeleted = true;
-        previewPhotos.forEach(previewPhoto => {
-            if (previewPhoto.id === originalPhoto.id) {
-                isDeleted = false;
+    if (restaurant.photos) {
+        for (const originalPhoto of restaurant.photos) {
+            let isDeleted = true;
+            previewPhotos.forEach(previewPhoto => {
+                if (previewPhoto.id === originalPhoto.id) {
+                    isDeleted = false;
+                }
+            })
+            if (isDeleted) {
+                const response = await PhotoAPI.delete(originalPhoto.id, currentUser.username, currentUser.password)
+                result.push(response)
             }
-        })
-        if (isDeleted) {
-            const response = await PhotoAPI.delete(originalPhoto.id)
-            result.push(response)
         }
     }
 

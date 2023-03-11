@@ -69,8 +69,10 @@ const LoginAndRegistrationForm = () => {
                 inputLoginRef.current.value,
                 inputFirstPasswordRef.current.value
             ).then(
-                (response) => successfulLogin(response.data),
-                () => setErrorMessage('Не верные учётные данные'))
+                (response) => successfulLogin({...response.data, password: inputFirstPasswordRef.current.value}),
+                () => {
+                    setErrorMessage('Не верные учётные данные')
+                })
         }
     }
 

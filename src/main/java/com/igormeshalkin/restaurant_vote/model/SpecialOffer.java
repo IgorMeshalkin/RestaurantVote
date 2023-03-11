@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class SpecialOffer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
+    @JsonIgnore
     private Restaurant restaurant;
 
     @Override

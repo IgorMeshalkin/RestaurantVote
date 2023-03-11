@@ -5,4 +5,5 @@
     bottom: 0;
     left: 0;
     transition: 0.8s;
+    animation: smoothAppearance 0.3s forwards;
 }

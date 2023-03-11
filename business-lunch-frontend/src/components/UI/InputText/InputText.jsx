@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import cl from './InputText.module.css'
 
 const InputText = React.forwardRef(({placeholder, value, onChange}, ref) => {
-    const[innerValue, setInnerValue] = useState(value)
+    const[innerValue, setInnerValue] = useState(value ? value : '')
 
     function changeValue(event) {
         setInnerValue(event)

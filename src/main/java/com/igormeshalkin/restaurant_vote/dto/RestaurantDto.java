@@ -23,7 +23,7 @@ public class RestaurantDto {
     private Double price;
     private Long rating;
     private List<MealDto> menu;
-//    private List<String> photos;
+    private Long userId;
 
     public static RestaurantDto fromRestaurant(Restaurant restaurant) {
         RestaurantDto restaurantDto = new RestaurantDto();
@@ -34,13 +34,15 @@ public class RestaurantDto {
         restaurantDto.setLunchTime(restaurant.getLunchTime());
         restaurantDto.setCuisine(restaurant.getCuisine());
         restaurantDto.setPrice(restaurant.getPrice());
-        restaurantDto.setRating((long) restaurant.getVotes().size());
-        restaurantDto.setMenu(restaurant.getMenu().stream()
-                .map(MealDto::fromMeal)
-                .collect(Collectors.toList()));
-//        restaurantDto.setPhotos(restaurant.getPhotos().stream()
-//                .map(Photo::getUrl)
-//                .collect(Collectors.toList()));
+        if (restaurant.getVotes() != null) {
+            restaurantDto.setRating((long) restaurant.getVotes().size());
+        }
+        if (restaurant.getMenu() != null) {
+            restaurantDto.setMenu(restaurant.getMenu().stream()
+                    .map(MealDto::fromMeal)
+                    .collect(Collectors.toList()));
+        }
+        restaurantDto.setUserId(restaurant.getUser() == null ? null : restaurant.getUser().getId());
         return restaurantDto;
     }
 }

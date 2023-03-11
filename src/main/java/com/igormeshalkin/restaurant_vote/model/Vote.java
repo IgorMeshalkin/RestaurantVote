@@ -1,6 +1,7 @@
 package com.igormeshalkin.restaurant_vote.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -18,5 +19,6 @@ public class Vote extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
+    @JsonIgnore
     private Restaurant restaurant;
 }

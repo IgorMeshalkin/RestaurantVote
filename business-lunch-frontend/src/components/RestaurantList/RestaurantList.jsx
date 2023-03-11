@@ -6,6 +6,8 @@ import {getPagesCount} from "../../utils/pages";
 import PizzaLoader from "../Loaders/PizzaLoader";
 import RestaurantItem from "./RestaurantItem/RestaurantItem";
 import LineLoader from "../Loaders/LineLoader";
+import Modal from "../Modal/Modal";
+import DeleteForm from "../DeleteForm/DeleteForm";
 
 const RestaurantList = (props) => {
     const restList = useRef()
@@ -70,6 +72,17 @@ const RestaurantList = (props) => {
         setAllRestaurants([...allRestaurants, ...response.data])
     })
 
+    const [isDeleteModalActive, setIsDeleteModalActive] = useState(false)
+    const [selectedForDeleteRestaurant, setSelectedForDeleteRestaurant] = useState({})
+    const [isFirstLoading, setIsFirstLoading] = useState(true)
+
+    useEffect(() => {
+        if (!isFirstLoading) {
+            setIsDeleteModalActive(true)
+        }
+        setIsFirstLoading(false)
+    }, [selectedForDeleteRestaurant])
+
     return (<div>
         <div className="centerBlock">
             {(firstPageLoadingError || nextPageLoadingError) &&
@@ -90,7 +103,9 @@ const RestaurantList = (props) => {
             <div className="restList" ref={restList}>
                 {allRestaurants.map((restaurant) => <RestaurantItem key={restaurant.id}
                                                                     restaurant={restaurant}
-                                                                    showMenu={props.showMenu}/>)}
+                                                                    showMenu={props.showMenu}
+                                                                    onDeleteButtonClick={() => setSelectedForDeleteRestaurant(restaurant)}
+                />)}
                 {(allRestaurants.length < totalRestaurants && !firstPageLoadingError && !nextPageLoadingError && !props.specialOfferRestaurant) &&
                     <LineLoader/>}
                 {props.specialOfferRestaurant &&
@@ -98,6 +113,17 @@ const RestaurantList = (props) => {
                         списку</div>
                 }
             </div>}
+
+        <Modal
+            active={isDeleteModalActive}
+            setActive={setIsDeleteModalActive}
+        >
+            <DeleteForm
+                itemForDelete={selectedForDeleteRestaurant}
+                setModalActive={setIsDeleteModalActive}
+                updatePage={fetchFirstPage}
+            />
+        </Modal>
     </div>);
 };
 

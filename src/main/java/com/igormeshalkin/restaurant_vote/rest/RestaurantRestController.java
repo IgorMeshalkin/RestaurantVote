@@ -6,6 +6,7 @@ import com.igormeshalkin.restaurant_vote.model.Restaurant;
 import com.igormeshalkin.restaurant_vote.model.СuisineType;
 import com.igormeshalkin.restaurant_vote.service.RestaurantService;
 import com.igormeshalkin.restaurant_vote.service.UserService;
+import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,6 @@ public class RestaurantRestController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('everything:read entries')")
     @ApiOperation("Get all restaurants")
     public ResponseEntity<List<RestaurantDto>> getAll(@RequestParam int limit,
                                                       @RequestParam int page,
@@ -61,7 +61,6 @@ public class RestaurantRestController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('everything:read entries')")
     @ApiOperation("Get restaurant by id")
     public ResponseEntity<RestaurantFullDto> getById(@PathVariable Long id) {
         Restaurant restaurant = restaurantService.findById(id);
@@ -75,25 +74,35 @@ public class RestaurantRestController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Create new restaurant")
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<RestaurantDto> create(@RequestBody Restaurant restaurant) {
         Restaurant result = restaurantService.create(restaurant);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(RestaurantDto.fromRestaurant(result), HttpStatus.OK);
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Update restaurant")
     public ResponseEntity<Restaurant> update(@RequestBody Restaurant restaurant) {
         Restaurant result = restaurantService.update(restaurant);
+        if (result == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('everything:change entries')")
+    @PreAuthorize("hasAuthority('users:change your entries')")
     @ApiOperation("Delete restaurant")
-    public void delete(@PathVariable Long id) {
-        restaurantService.delete(id);
+    public ResponseEntity<Restaurant> delete(@PathVariable Long id) {
+        String result = restaurantService.delete(id);
+        if (result.equals("NOT FOUND")) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if (result.equals("FORBIDDEN")) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 }

@@ -23,6 +23,7 @@ public class RestaurantFullDto extends RestaurantDto {
         restaurantFullDto.setLunchTime(restaurant.getLunchTime());
         restaurantFullDto.setCuisine(restaurant.getCuisine());
         restaurantFullDto.setPrice(restaurant.getPrice());
+        restaurantFullDto.setUserId(restaurant.getUser() == null ? null : restaurant.getUser().getId());
         restaurantFullDto.setRating((long) restaurant.getVotes().size());
         restaurantFullDto.setMenu(restaurant.getMenu().stream()
                 .map(MealDto::fromMeal)

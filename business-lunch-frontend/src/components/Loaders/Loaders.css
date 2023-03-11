@@ -7,6 +7,10 @@
     display: flex;
 }
 
+.pizzaContainer {
+    animation: smoothAppearance 0.3s forwards;
+}
+
 .lineLoaderMain {
     height: 20px;
     width: 100%;

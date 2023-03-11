@@ -63,7 +63,7 @@ public class Restaurant extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+//    @JsonBackReference
     @JsonIgnore
     private User user;
 
@@ -75,6 +75,7 @@ public class Restaurant extends BaseEntity {
                 ", address='" + address + '\'' +
                 ", price='" + price + '\'' +
                 ", phone='" + phoneNumber + '\'' +
+                ", userId='" + (user == null ? null : user.getId()) + '\'' +
                 '}';
     }
 }

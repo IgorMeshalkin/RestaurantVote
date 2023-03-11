@@ -1,8 +1,11 @@
 package com.igormeshalkin.restaurant_vote.service;
 
 import com.igormeshalkin.restaurant_vote.model.Restaurant;
+import com.igormeshalkin.restaurant_vote.model.Role;
+import com.igormeshalkin.restaurant_vote.model.User;
 import com.igormeshalkin.restaurant_vote.model.СuisineType;
 import com.igormeshalkin.restaurant_vote.repository.RestaurantRepository;
+import com.igormeshalkin.restaurant_vote.util.SecurityUtil;
 import com.igormeshalkin.restaurant_vote.util.TimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,6 +66,7 @@ public class RestaurantService {
         LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         restaurant.setCreated(dateTime);
         restaurant.setUpdated(dateTime);
+        restaurant.setUser(SecurityUtil.getCurrentUser());
 
         Restaurant result = restaurantRepository.save(restaurant);
         log.info("IN create - restaurant: {} successfully created", result);
@@ -71,22 +75,42 @@ public class RestaurantService {
 
     public Restaurant update(Restaurant restaurant) {
         Restaurant restaurantFromDb = restaurantRepository.findById(restaurant.getId()).orElse(null);
+        User currentUser = SecurityUtil.getCurrentUser();
+
         if (restaurantFromDb == null) {
             log.info("IN update - restaurant with id \"{}\" not found for update)", restaurant.getId());
             return restaurant;
+        } else if ((!restaurantFromDb.getUser().getId().equals(currentUser.getId()))
+        && !currentUser.getRole().equals(Role.ADMIN)) {
+            log.info("IN update - trying to change someone else's restaurant with id \"{}\")", restaurant.getId());
+            return null;
         }
 
         LocalDateTime dateTime = LocalDateTime.now(TimeUtil.SERVER_ZONE_ID);
         restaurant.setCreated(restaurantFromDb.getCreated());
         restaurant.setUpdated(dateTime);
+        restaurant.setUser(restaurantFromDb.getUser());
 
         Restaurant result = restaurantRepository.save(restaurant);
         log.info("IN update - restaurant: {} successfully updated", result);
         return result;
     }
 
-    public void delete(Long id) {
+    public String delete(Long id) {
+        Restaurant restaurantFromDb = restaurantRepository.findById(id).orElse(null);
+        User currentUser = SecurityUtil.getCurrentUser();
+
+        if (restaurantFromDb == null) {
+            log.info("IN delete - restaurant with id \"{}\" not found for update)", id);
+            return "NOT FOUND";
+        } else if ((!restaurantFromDb.getUser().getId().equals(currentUser.getId()))
+                && !currentUser.getRole().equals(Role.ADMIN)) {
+            log.info("IN delete - trying to delete someone else's restaurant with id \"{}\")", id);
+            return "FORBIDDEN";
+        }
+
         restaurantRepository.deleteById(id);
         log.info("IN delete - restaurant with id: \"{}\" successfully deleted", id);
+        return "OK";
     }
 }

@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import './DeleteButton.css'
 
-const DeleteButton = () => {
+const DeleteButton = ({onClick}) => {
     return (
-        <div className="delButMain" title="Удалить">
+        <div className="delButMain" title="Удалить" onClick={onClick}>
             <div className="basketBody">
                 <div className="basketLid"/>
                 <div className="basketLidHandle"/>
